@@ -1,3 +1,32 @@
 @use '@angular/cdk' as cdk;
+@use './app/styles/variables' as v;
+@use './app/styles/button.scss';
+@use './app/styles/input.scss';
 
 @include cdk.overlay();
+
+html,
+body {
+    font-family: 'Roboto', Courier, monospace;
+    --color-primary: hsl(271, 76%, 53%);
+    --color-primary-light: hsl(271, 76%, 85%);
+    --color-secondary: hsl(33 90% 75%);
+    --color-secondary-dark: hsl(33 90% 25%);
+    --color-white: hsl(0, 0%, 100%);
+    --color-error: hsl(0, 80%, 35%);
+}
+
+* {
+    box-sizing: border-box;
+}
+.cursor {
+    &--pointer {
+        cursor: pointer;
+    }
+}
+
+// Add Dialog cdk container css
+.add-cow-dialog {
+    min-width: 64%;
+    max-width: 100%;
+}

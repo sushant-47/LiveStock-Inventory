@@ -1,0 +1,16 @@
+@use './variables' as v;
+
+input,
+select {
+    min-height: 28px;
+    height: 28px;
+    padding: 4px 10px;
+    border: 1px solid hsla(0, 0%, 0%, 50%);
+    border-radius: v.$padding-xs;
+    font-family: inherit;
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0px 0px 4px 2px var(--color-primary-light);
+    }
+}

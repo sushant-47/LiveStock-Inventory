@@ -1,6 +1,6 @@
-<!-- page wrapper -->
-<button (click)="openAddCowDialog()"> + Add Cow </button>
-<!-- add table wrapper -->
+<!-- TODO(styles): page wrapper -->
+<button class="primary" (click)="openAddCowDialog()"> Add Cow </button>
+<!-- TODO(styles): add table wrapper -->
 <cdk-table [dataSource]="dataSource">
     <ng-container [cdkColumnDef]="COLUMNS.TagNumber">
         <cdk-header-cell *cdkHeaderCellDef> Tag Number </cdk-header-cell>
@@ -9,7 +9,7 @@
 
     <ng-container [cdkColumnDef]="COLUMNS.Gender">
         <cdk-header-cell *cdkHeaderCellDef> Gender </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row"> {{GENDER[row.gender]}} </cdk-cell>
+        <cdk-cell *cdkCellDef="let row"> {{GENDER[row.gender] | lowercase }} </cdk-cell>
     </ng-container>
 
     <ng-container [cdkColumnDef]="COLUMNS.Pen">
@@ -19,7 +19,7 @@
 
     <ng-container [cdkColumnDef]="COLUMNS.Status">
         <cdk-header-cell *cdkHeaderCellDef> Status </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row"> {{STATUS[row.status]}} </cdk-cell>
+        <cdk-cell *cdkCellDef="let row"> {{STATUS[row.status] | lowercase}} </cdk-cell>
     </ng-container>
 
     <ng-container [cdkColumnDef]="COLUMNS.RecordedDate">

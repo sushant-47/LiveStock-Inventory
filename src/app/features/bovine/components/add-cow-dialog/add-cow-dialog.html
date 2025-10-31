@@ -1,1 +1,108 @@
-<p>add-cow-dialog works!</p>
+<section class="dialog-container">
+    <header class="dialog-header">
+        <div> Add Cow </div>
+        <div class="close cursor--pointer" (click)="cancel()">+</div>
+    </header>
+    <div class="dialog-content">
+        <div class="form-content">
+            <form [formGroup]="formGroup" class="form-group">
+                <div class="form-field">
+                    <div class="field-wrapper">
+                        <div class="field">
+                            <label for="tagNumber" class="mandatory"> Tag Number </label>
+                            <input [formControlName]="tagNumber.key" id="tagNumber" />
+                        </div>
+                        @if (hasError(tagNumber.control)) {
+                        <div class="error">
+                            {{ getError(tagNumber) }}
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-field">
+                    <div class="field-wrapper">
+                        <div class="field select">
+                            <label for="gender" class="mandatory"> Gender </label>
+                            <select [formControlName]="gender.key" id="gender">
+                                <option value="">-- Select --</option>
+                                @for (gender of GENDERS; track gender.value) {
+                                <option [value]="gender.value">
+                                    {{gender.text | lowercase}}
+                                </option>
+                                }
+                            </select>
+                        </div>
+                        @if (hasError(gender.control)) {
+                        <div class="error">
+                            {{ getError(gender) }}
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-field">
+                    <div class="field-wrapper">
+                        <div class="field">
+                            <label for="pen" class="mandatory"> Pen </label>
+                            <input [formControlName]="pen.key" id="pen" />
+                        </div>
+                        @if (hasError(pen.control)) {
+                        <div class="error">
+                            {{ getError(pen) }}
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-field">
+                    <div class="field-wrapper">
+                        <div class="field select">
+                            <label for="status" class="mandatory"> Status </label>
+                            <select [formControlName]="status.key" id="status">
+                                <option value="">-- Select --</option>
+                                @for (status of STATUSES; track status.value) {
+                                <option [value]="status.value">
+                                    @switch (status.value) {
+                                    @case (1) {
+                                    Dry Period
+                                    }
+                                    @case (2) {
+                                    In Treatment
+                                    }
+                                    @default {
+                                        {{status.text | lowercase}}
+                                    }
+                                    }
+                                </option>
+                                }
+                            </select>
+                        </div>
+                        @if (hasError(status.control)) {
+                        <div class="error">
+                            {{ getError(status) }}
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-field">
+                    <div class="field-wrapper">
+                        <div class="field">
+                            <label for="weight"> Weight </label>
+                            <input [formControlName]="weight.key" id="weight" />
+                        </div>
+                        @if (hasError(weight.control)) {
+                        <div class="error">
+                            {{ getError(weight) }}
+                        </div>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="dialog-footer">
+        <div></div>
+        <div class="action-btn">
+            <button (click)="cancel()"> Cancel </button>
+            <button class="primary" (click)="save()"> Save </button>
+        </div>
+    </footer>
+</section>

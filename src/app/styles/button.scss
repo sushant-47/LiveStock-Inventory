@@ -1,0 +1,35 @@
+@use './variables' as v;
+
+button {
+    padding: 8px 4px;
+    min-width: 96px;
+    min-height: 36px;
+    background: none;
+    border-radius: v.$padding-xs;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    font-family: inherit;
+    cursor: pointer;
+
+    // &:hover:not(.secondary) {
+    //     color: var(--color-white);
+    //     background-color: var(--color-primary);
+    // }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        background: none;
+    }
+
+    &+button {
+        margin-left: 16px;
+    }
+
+    &.primary {
+        color: var(--color-white);
+        background-color: var(--color-primary);
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+}

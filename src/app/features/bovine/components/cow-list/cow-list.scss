@@ -1,3 +1,6 @@
+:host {
+    display: block;
+}
 // add cdk table styles
 .cdk-table {
     width: 100%;
@@ -11,4 +14,9 @@
 .cdk-cell,
 .cdk-header-cell {
     min-width: 128px;
+}
+
+.cdk-column-Gender,
+.cdk-column-Status {
+    text-transform: capitalize;
 }

@@ -1,0 +1,89 @@
+@use '../../../../styles/variables' as v;
+
+.dialog-container {
+    border-radius: v.$padding-xs;
+    background-color: var(--color-white);
+    overflow: hidden;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    padding: v.$padding-normal v.$padding-xl;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+
+    .close {
+        transform: rotate(45deg) scale(1.5);
+    }
+}
+
+.dialog-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: v.$padding-normal v.$padding-xl;
+
+    .action-btn {}
+}
+
+.dialog-content {
+    padding: v.$padding-xl;
+}
+
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    .form-field {
+        font-size: 14px;
+        padding-right: v.$padding-xl;
+        padding-bottom: v.$padding-xxl;
+    }
+}
+
+.form-field {
+    width: 50%;
+
+    .field-wrapper {
+        .field {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            label {
+                padding-bottom: v.$padding-half;
+
+                &.mandatory {
+                    &::after {
+                        content: '*';
+                        font-size: 0.8em;
+                        position: relative;
+                        top: -3px;
+                        left: -1px;
+                        color: var(--color-error);
+                    }
+                }
+            }
+
+            &.select {
+                select,
+                option {
+                    &,
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                select:valid,
+                option {
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+        .error {
+            color: var(--color-error);
+        }
+    }
+}
