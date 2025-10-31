@@ -1,1 +1,33 @@
-<p>cow-list works!</p>
+<!-- page wrapper -->
+<button (click)="openAddCowDialog()"> + Add Cow </button>
+<!-- add table wrapper -->
+<cdk-table [dataSource]="dataSource">
+    <ng-container [cdkColumnDef]="COLUMNS.TagNumber">
+        <cdk-header-cell *cdkHeaderCellDef> Tag Number </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let row"> {{row.tagNumber}} </cdk-cell>
+    </ng-container>
+
+    <ng-container [cdkColumnDef]="COLUMNS.Gender">
+        <cdk-header-cell *cdkHeaderCellDef> Gender </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let row"> {{GENDER[row.gender]}} </cdk-cell>
+    </ng-container>
+
+    <ng-container [cdkColumnDef]="COLUMNS.Pen">
+        <cdk-header-cell *cdkHeaderCellDef> Pen </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let row"> {{row.pen}} </cdk-cell>
+    </ng-container>
+
+    <ng-container [cdkColumnDef]="COLUMNS.Status">
+        <cdk-header-cell *cdkHeaderCellDef> Status </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let row"> {{STATUS[row.status]}} </cdk-cell>
+    </ng-container>
+
+    <ng-container [cdkColumnDef]="COLUMNS.RecordedDate">
+        <cdk-header-cell *cdkHeaderCellDef> Recorded Date </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let row"> {{row.recordedDate}} </cdk-cell>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <cdk-header-row *cdkHeaderRowDef="COLUMNS_ARR"></cdk-header-row>
+    <cdk-row *cdkRowDef="let row; columns: COLUMNS_ARR"></cdk-row>
+</cdk-table>

@@ -1,0 +1,14 @@
+// add cdk table styles
+.cdk-table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.cdk-row,
+.cdk-header-row {
+    display: flex;
+}
+.cdk-cell,
+.cdk-header-cell {
+    min-width: 128px;
+}
