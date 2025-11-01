@@ -27,3 +27,10 @@ Once the server is running, open your browser and navigate to `http://localhost:
 
 > `data` folder contains mock data for backend.
 
+## Deploy to Github Pages
+1. Build application in production mode:
+```bash
+ng build --output-path docs --base-href /LiveStock-Inventory/
+```
+2. Publish using `/docs` as root.
+3. Move all files from `/docs/browser/` to `/docs/`.
