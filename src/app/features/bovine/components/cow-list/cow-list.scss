@@ -97,7 +97,8 @@
 
 .cdk-cell,
 .cdk-header-cell {
-    min-width: 160px;
+    width: 200px;
+    flex-grow: 1;
     padding: 8px 12px;
 }
 
@@ -105,6 +106,7 @@
     font-weight: bold;
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
+    transition: border-color 0.5s;
 
     &:hover {
         border-left-color: var(--color-border-table);
@@ -131,5 +133,5 @@
 }
 
 .cdk-column-RecordedDate {
-    min-width: 240px;
+    width: 375px;
 }

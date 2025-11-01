@@ -25,12 +25,6 @@ html {
     box-sizing: border-box;
 }
 
-.cursor {
-    &--pointer {
-        cursor: pointer;
-    }
-}
-
 // Add Dialog cdk container css
 .add-cow-dialog,
 .cow-details-dialog {

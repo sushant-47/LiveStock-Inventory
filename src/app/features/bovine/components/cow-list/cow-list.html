@@ -92,12 +92,16 @@
 
                         <ng-container [cdkColumnDef]="COLUMNS.Status">
                             <cdk-header-cell *cdkHeaderCellDef> Status </cdk-header-cell>
-                            <cdk-cell *cdkCellDef="let row"> {{STATUS[row.status] | lowercase}} </cdk-cell>
+                            <cdk-cell *cdkCellDef="let row">
+                                <cg-status-renderer [status]="row.status"></cg-status-renderer>
+                            </cdk-cell>
                         </ng-container>
 
                         <ng-container [cdkColumnDef]="COLUMNS.RecordedDate">
                             <cdk-header-cell *cdkHeaderCellDef> Recorded Date </cdk-header-cell>
-                            <cdk-cell *cdkCellDef="let row"> {{row.recordedDate}} </cdk-cell>
+                            <cdk-cell *cdkCellDef="let row">
+                                <cg-date-renderer [date]="row.recordedDate"></cg-date-renderer>
+                            </cdk-cell>
                         </ng-container>
 
                         <!-- Header and Row Declarations -->

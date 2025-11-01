@@ -17,6 +17,8 @@ import { ICowDetails } from '../../models/ICowDetails';
 import { BREED } from '../../enums/Breed.enum';
 import { IDialogData as IDetailsDialogData } from '../details-dialog/IDialogData';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { DateRenderer } from '../../renderers/date-renderer/date-renderer';
+import { StatusRenderer } from '../../renderers/status-renderer/status-renderer';
 
 @Component({
     selector: 'cg-cow-list',
@@ -25,6 +27,8 @@ import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
         ReactiveFormsModule,
         CdkTableModule,
         DialogModule,
+        DateRenderer,
+        StatusRenderer,
     ],
     providers: [
         Dialog,

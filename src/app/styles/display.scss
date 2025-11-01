@@ -2,3 +2,13 @@
 .hide {
     display: none;
 }
+
+.capitalise {
+    text-transform: capitalize;
+}
+
+.cursor {
+    &--pointer {
+        cursor: pointer;
+    }
+}
