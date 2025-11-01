@@ -22,11 +22,11 @@
                 <div class="form-field">
                     <div class="field-wrapper">
                         <div class="field select">
-                            <label for="gender" class="mandatory"> Gender </label>
+                            <label for="gender" class="mandatory"> Sex </label>
                             <select [formControlName]="gender.key" id="gender">
                                 <option value="">-- Select --</option>
                                 @for (gender of GENDERS; track gender.value) {
-                                <option [value]="gender.value">
+                                <option [ngValue]="gender.value">
                                     {{gender.text | lowercase}}
                                 </option>
                                 }
@@ -59,7 +59,7 @@
                             <select [formControlName]="status.key" id="status">
                                 <option value="">-- Select --</option>
                                 @for (status of STATUSES; track status.value) {
-                                <option [value]="status.value">
+                                <option [ngValue]="status.value">
                                     @switch (status.value) {
                                     @case (1) {
                                     Dry Period
@@ -101,7 +101,7 @@
     <footer class="dialog-footer">
         <div></div>
         <div class="action-btn">
-            <button (click)="cancel()"> Cancel </button>
+            <button class="secondary" (click)="cancel()"> Cancel </button>
             <button class="primary" (click)="save()"> Save </button>
         </div>
     </footer>

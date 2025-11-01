@@ -1,7 +1,10 @@
 @use '@angular/cdk' as cdk;
 @use './app/styles/variables' as v;
+@use './app/styles//color.scss';
 @use './app/styles/button.scss';
 @use './app/styles/input.scss';
+@use './app/styles/display.scss';
+@use './app/styles/accordion.scss';
 
 @include cdk.overlay();
 
@@ -9,10 +12,12 @@ html,
 body {
     font-family: 'Roboto', Courier, monospace;
     --color-primary: hsl(271, 76%, 53%);
+    --color-primary-ll: hsl(271, 76%, 70%);
     --color-primary-light: hsl(271, 76%, 85%);
     --color-secondary: hsl(33 90% 75%);
     --color-secondary-dark: hsl(33 90% 25%);
     --color-white: hsl(0, 0%, 100%);
+    --color-black: #000;
     --color-error: hsl(0, 80%, 35%);
 }
 
@@ -26,7 +31,7 @@ body {
 }
 
 // Add Dialog cdk container css
-.add-cow-dialog {
-    min-width: 64%;
-    max-width: 100%;
+.add-cow-dialog,
+.cow-details-dialog {
+    width: 64%;
 }

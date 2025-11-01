@@ -1,0 +1,14 @@
+[
+    {
+        "tagNumber": "C00001",
+        "dailyWeightGain": "",
+        "breed": 1,
+        "breedOrigin": "Punjab"
+    },
+    {
+        "tagNumber": "C00002",
+        "dailyWeightGain": "4",
+        "breed": 3,
+        "breedOrigin": "Maharashtra"
+    }
+]

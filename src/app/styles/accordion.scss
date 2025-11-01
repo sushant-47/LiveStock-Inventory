@@ -1,0 +1,32 @@
+@use './variables' as v;
+
+// styling for cdk-accordion
+.cg-accordion {}
+
+.cg-accordion-item {}
+
+.cg-accordion-item-header {}
+
+.cg-accordion-item-body {
+    [data-row] {
+        display: flex;
+        font-size: 0.85em;
+
+        &:not(:first-child) {
+            padding-top: v.$padding-half-xl;
+        }
+
+        &:not(:last-child) {
+            padding-bottom: v.$padding-half-xl;
+            border-bottom: 1px solid hsl(0, 0%, 60%);
+        }
+
+        .title {
+            width: 35%;
+            font-weight: bold;
+        }
+
+        .content {
+        }
+    }
+}

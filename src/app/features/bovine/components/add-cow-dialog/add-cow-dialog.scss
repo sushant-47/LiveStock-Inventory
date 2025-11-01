@@ -1,7 +1,7 @@
 @use '../../../../styles/variables' as v;
 
 .dialog-container {
-    border-radius: v.$padding-xs;
+    border-radius: v.$padding-half;
     background-color: var(--color-white);
     overflow: hidden;
 }
@@ -9,7 +9,9 @@
 .dialog-header {
     display: flex;
     justify-content: space-between;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
     padding: v.$padding-normal v.$padding-xl;
     color: var(--color-white);
     background-color: var(--color-primary);

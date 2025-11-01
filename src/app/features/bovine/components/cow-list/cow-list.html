@@ -4,7 +4,11 @@
 <cdk-table [dataSource]="dataSource">
     <ng-container [cdkColumnDef]="COLUMNS.TagNumber">
         <cdk-header-cell *cdkHeaderCellDef> Tag Number </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row"> {{row.tagNumber}} </cdk-cell>
+        <cdk-cell *cdkCellDef="let row">
+            <span (click)="showCowDetails(row)">
+                {{row.tagNumber}}
+            </span>
+        </cdk-cell>
     </ng-container>
 
     <ng-container [cdkColumnDef]="COLUMNS.Gender">

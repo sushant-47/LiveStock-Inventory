@@ -1,0 +1,55 @@
+<section class="dialog-container">
+    <header class="dialog-header">
+        <div class="title">
+            Cattle Details
+            <span class="c-primary">{{info.tagNumber}}</span>
+        </div>
+        <div class="close cursor--pointer" (click)="cancel()">+</div>
+    </header>
+    <div class="dialog-content">
+        <cdk-accordion [multi]="true" class="cg-accordion">
+            <cdk-accordion-item #infoItem="cdkAccordionItem" [expanded]="true" [disabled]="true"
+                class="cg-accordion-item basic-accordion">
+                <div class="cg-accordion-item-header hide" (click)="infoItem.toggle()" tabindex="0"></div>
+                @if(infoItem.expanded) {
+                <div class="cg-accordion-item-body">
+                    <div data-row>
+                        <div class="title"> Ear tag Number </div>
+                        <div class="content"> {{info.tagNumber}} </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Sex </div>
+                        <div class="content"> {{GENDER[info.gender]}} </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Pen </div>
+                        <div class="content"> {{info.pen}} </div>
+                    </div>
+                </div>
+                }
+            </cdk-accordion-item>
+            <cdk-accordion-item #basicInfoItem="cdkAccordionItem" [expanded]="true" [disabled]="true" class="cg-accordion-item basic-accordion">
+                <div class="cg-accordion-item-header" (click)="basicInfoItem.toggle()" tabindex="0">
+                    Basic Information
+                </div>
+                @if(basicInfoItem.expanded) {
+                <div class="cg-accordion-item-body">
+                    <div data-row>
+                        <div class="title"> Ear tag Number </div>
+                        <div class="content"> {{info.tagNumber}} </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Sex </div>
+                        <div class="content"> {{GENDER[info.gender]}} </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Pen </div>
+                        <div class="content"> {{info.pen}} </div>
+                    </div>
+                </div>
+                }
+            </cdk-accordion-item>
+
+        </cdk-accordion>
+    </div>
+</section>
