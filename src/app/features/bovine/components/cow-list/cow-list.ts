@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { LowerCasePipe } from '@angular/common';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { CdkTableModule } from '@angular/cdk/table';
-import { Subject, take, takeUntil } from 'rxjs';
+import { merge, Subject, take, takeUntil } from 'rxjs';
 import { CowData } from '../../models/CowData';
 import { TableDataSource } from '../../models/TableDataSource';
 import { CowColumns } from '../../enums/CowColumns.enum';
@@ -16,11 +16,13 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ICowDetails } from '../../models/ICowDetails';
 import { BREED } from '../../enums/Breed.enum';
 import { IDialogData as IDetailsDialogData } from '../details-dialog/IDialogData';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'cg-cow-list',
     imports: [
         LowerCasePipe,
+        ReactiveFormsModule,
         CdkTableModule,
         DialogModule,
     ],
@@ -34,16 +36,44 @@ import { IDialogData as IDetailsDialogData } from '../details-dialog/IDialogData
 export class CowListComponent implements OnInit, OnDestroy {
     cows: CowData[] = [];
     dataSource: TableDataSource<CowData> = new TableDataSource([...this.cows]);
+    statusCtrl: FormControl<STATUS | -1>;
+    penCtrl: FormControl<string>;
+    tagNumCtrl: FormControl<string>;
+
     readonly COLUMNS_ARR: CowColumns[] = Object.values(CowColumns);
     readonly COLUMNS: typeof CowColumns = CowColumns;
     readonly GENDER: typeof GENDER = GENDER;
     readonly STATUS: typeof STATUS = STATUS;
+    readonly GENDERS =
+        Object.values(GENDER)
+            .filter((gender) => typeof gender === 'number')
+            .map((gender) => {
+                return {
+                    value: gender,
+                    text: GENDER[gender]
+                }
+            });
+    readonly STATUSES =
+        Object.values(STATUS)
+            .filter((status) => typeof status === 'number')
+            .map((status) => {
+                return {
+                    value: status,
+                    text: STATUS[status]
+                }
+            });
 
+
+    private _fb: FormBuilder = inject(FormBuilder);
     private _dialogService: Dialog = inject(Dialog);
     private _overlay: Overlay = inject(Overlay);
     private _destroy$: Subject<void> = new Subject();
 
-    constructor() { }
+    constructor() {
+        this.statusCtrl = this._fb.control(-1);
+        this.penCtrl = this._fb.control('');
+        this.tagNumCtrl = this._fb.control('');
+    }
 
     ngOnInit(): void {
         const data = new CowData({
@@ -55,6 +85,18 @@ export class CowListComponent implements OnInit, OnDestroy {
             weight: '300',
         });
         this._addCowToDataSource(data);
+
+        merge(
+            this.statusCtrl.valueChanges,
+            this.penCtrl.valueChanges,
+            this.tagNumCtrl.valueChanges,
+        ).pipe(
+            takeUntil(this._destroy$)
+        ).subscribe({
+            next: () => {
+                console.log('merge filters')
+            }
+        });
     }
 
     ngOnDestroy(): void {
@@ -106,6 +148,29 @@ export class CowListComponent implements OnInit, OnDestroy {
                     this._addCowToDataSource(result);
                 }
             }
+        });
+    }
+
+    private _hasSearchOrFilterActive(): boolean {
+        return !!this.tagNumCtrl.value
+            || !!this.penCtrl.value
+            || this.statusCtrl.value !== -1;
+    }
+
+    private _applySearchAndFilters(): void {
+        const tagNumber: string = this.tagNumCtrl.value;
+        const status: STATUS | -1 = this.statusCtrl.value;
+        const pen: string = this.penCtrl.value;
+        let currentData: CowData[] = [];
+
+        if (!!tagNumber) {
+            currentData = currentData.concat(this._getSearchResults(tagNumber));
+        }
+    }
+
+    private _getSearchResults(tagNumber: string): CowData[] {
+        return this.cows.filter((cow) => {
+            return cow.tagNumber.toLowerCase().includes(tagNumber.toLowerCase());
         });
     }
 

@@ -14,3 +14,48 @@ select {
         box-shadow: 0px 0px 4px 2px var(--color-primary-light);
     }
 }
+
+.form-field {
+    font-size: 14px;
+    .field-wrapper {
+        .field {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            label {
+                padding-bottom: v.$padding-half;
+                &.mandatory {
+                    &::after {
+                        content: '*';
+                        font-size: 0.8em;
+                        position: relative;
+                        top: -3px;
+                        left: -1px;
+                        color: var(--color-error);
+                    }
+                }
+            }
+
+            // native select box
+            &.select {
+                select,
+                option {
+                    &,
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                select:valid,
+                option {
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+        .error {
+            color: var(--color-error);
+        }
+    }
+}

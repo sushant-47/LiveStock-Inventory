@@ -5,9 +5,18 @@ export class TableDataSource<T> extends DataSource<T> {
     private _data: readonly T[];
     private _dataSub: BehaviorSubject<readonly T[]> = new BehaviorSubject([] as readonly T[]);
 
+    get data(): readonly T[] {
+        return this._data;
+    }
+
     constructor(data: readonly T[]) {
         super();
         this._data = data;
+    }
+
+    setItems(items: T[]): void {
+        this._data = [...items];
+        this._dataSub.next(this._data);
     }
 
     pushItems(items: T[]): void {

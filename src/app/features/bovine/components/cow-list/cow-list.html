@@ -1,37 +1,111 @@
-<!-- TODO(styles): page wrapper -->
-<button class="primary" (click)="openAddCowDialog()"> Add Cow </button>
-<!-- TODO(styles): add table wrapper -->
-<cdk-table [dataSource]="dataSource">
-    <ng-container [cdkColumnDef]="COLUMNS.TagNumber">
-        <cdk-header-cell *cdkHeaderCellDef> Tag Number </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row">
-            <span (click)="showCowDetails(row)">
-                {{row.tagNumber}}
-            </span>
-        </cdk-cell>
-    </ng-container>
 
-    <ng-container [cdkColumnDef]="COLUMNS.Gender">
-        <cdk-header-cell *cdkHeaderCellDef> Gender </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row"> {{GENDER[row.gender] | lowercase }} </cdk-cell>
-    </ng-container>
+<main class="page">
+    <content class="page__wrapper">
+        <div class="page__header">
+            <div class="title">
+                <h4> LiveStock Inventory </h4>
+                <div class="description">
+                    Overview of all registered cattles in your farm.
+                </div>
+            </div>
+            <div class="filters">
+                <div class="filters__wrapper">
+                    <div class="filters__field">
+                        <div class="form-field">
+                            <div class="field-wrapper">
+                                <div class="field">
+                                    <label for="penFilter"> Pen </label>
+                                    <input [formControl]="penCtrl" id="penFilter" placeholder="Enter Pen" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filters__field">
+                        <div class="form-field">
+                            <div class="field-wrapper">
+                                <div class="field select">
+                                    <label for="statusFilter"> Status </label>
+                                    <select [formControl]="statusCtrl" id="statusFilter">
+                                        <option [ngValue]="-1"> All </option>
+                                        @for (status of STATUSES; track status.value) {
+                                        <option [ngValue]="status.value">
+                                            @switch (status.value) {
+                                            @case (1) {
+                                            Dry Period
+                                            }
+                                            @case (2) {
+                                            In Treatment
+                                            }
+                                            @default {
+                                            {{status.text | lowercase}}
+                                            }
+                                            }
+                                        </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page__content">
+            <div class="grid">
+                <div class="grid__controls">
+                    <div class="grid--search">
+                        <div class="form-field">
+                            <div class="field-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="inherit">
+                                    <path
+                                        d="M14.583 15.48 9.104 10a4.591 4.591 0 0 1-1.458.844 5.156 5.156 0 0 1-1.771.302c-1.5 0-2.77-.52-3.813-1.563C1.022 8.542.5 7.285.5 5.813c0-1.473.52-2.73 1.563-3.771C3.103 1 4.367.479 5.854.479 7.326.48 8.58 1 9.614 2.042c1.035 1.041 1.553 2.298 1.553 3.77 0 .598-.098 1.174-.292 1.73A5.287 5.287 0 0 1 10 9.104l5.5 5.459-.917.916ZM5.854 9.895c1.125 0 2.083-.4 2.875-1.198a3.95 3.95 0 0 0 1.188-2.885 3.95 3.95 0 0 0-1.188-2.886C7.938 2.13 6.98 1.73 5.854 1.73c-1.139 0-2.107.4-2.906 1.198-.799.799-1.198 1.76-1.198 2.886 0 1.125.4 2.086 1.198 2.885.799.799 1.767 1.198 2.906 1.198Z">
+                                    </path>
+                                </svg>
+                                <div class="field">
+                                    <input [formControl]="tagNumCtrl" placeholder="Tag Number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="primary" (click)="openAddCowDialog()"> Add Cow </button>
+                </div>
+                <div class="grid__wrapper">
+                    <cdk-table [dataSource]="dataSource">
+                        <ng-container [cdkColumnDef]="COLUMNS.TagNumber">
+                            <cdk-header-cell *cdkHeaderCellDef> Tag Number </cdk-header-cell>
+                            <cdk-cell class="c-primary-less-light" *cdkCellDef="let row">
+                                <span (click)="showCowDetails(row)" class="cursor--pointer">
+                                    {{row.tagNumber}}
+                                </span>
+                            </cdk-cell>
+                        </ng-container>
 
-    <ng-container [cdkColumnDef]="COLUMNS.Pen">
-        <cdk-header-cell *cdkHeaderCellDef> Pen </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row"> {{row.pen}} </cdk-cell>
-    </ng-container>
+                        <ng-container [cdkColumnDef]="COLUMNS.Gender">
+                            <cdk-header-cell *cdkHeaderCellDef> Sex </cdk-header-cell>
+                            <cdk-cell *cdkCellDef="let row"> {{GENDER[row.gender] | lowercase }} </cdk-cell>
+                        </ng-container>
 
-    <ng-container [cdkColumnDef]="COLUMNS.Status">
-        <cdk-header-cell *cdkHeaderCellDef> Status </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row"> {{STATUS[row.status] | lowercase}} </cdk-cell>
-    </ng-container>
+                        <ng-container [cdkColumnDef]="COLUMNS.Pen">
+                            <cdk-header-cell *cdkHeaderCellDef> Pen </cdk-header-cell>
+                            <cdk-cell *cdkCellDef="let row"> {{row.pen}} </cdk-cell>
+                        </ng-container>
 
-    <ng-container [cdkColumnDef]="COLUMNS.RecordedDate">
-        <cdk-header-cell *cdkHeaderCellDef> Recorded Date </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row"> {{row.recordedDate}} </cdk-cell>
-    </ng-container>
+                        <ng-container [cdkColumnDef]="COLUMNS.Status">
+                            <cdk-header-cell *cdkHeaderCellDef> Status </cdk-header-cell>
+                            <cdk-cell *cdkCellDef="let row"> {{STATUS[row.status] | lowercase}} </cdk-cell>
+                        </ng-container>
 
-    <!-- Header and Row Declarations -->
-    <cdk-header-row *cdkHeaderRowDef="COLUMNS_ARR"></cdk-header-row>
-    <cdk-row *cdkRowDef="let row; columns: COLUMNS_ARR"></cdk-row>
-</cdk-table>
+                        <ng-container [cdkColumnDef]="COLUMNS.RecordedDate">
+                            <cdk-header-cell *cdkHeaderCellDef> Recorded Date </cdk-header-cell>
+                            <cdk-cell *cdkCellDef="let row"> {{row.recordedDate}} </cdk-cell>
+                        </ng-container>
+
+                        <!-- Header and Row Declarations -->
+                        <cdk-header-row *cdkHeaderRowDef="COLUMNS_ARR"></cdk-header-row>
+                        <cdk-row *cdkRowDef="let row; columns: COLUMNS_ARR"></cdk-row>
+                    </cdk-table>
+                </div>
+            </div>
+        </div>
+    </content>
+</main>

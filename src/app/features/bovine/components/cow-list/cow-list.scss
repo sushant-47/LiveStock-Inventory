@@ -1,22 +1,135 @@
+@use '../../../../styles/variables' as v;
+
 :host {
     display: block;
 }
+
+.page {
+    padding: 0 v.$padding-xl;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-top: v.$padding-normal;
+        padding-bottom: v.$padding-xxl;
+        font-size: 14px;
+
+        h4 {
+            letter-spacing: 0.1ch;
+            font-size: 1.5em;
+            margin: 0;
+            padding-bottom: v.$padding-half;
+        }
+
+        .description {
+            letter-spacing: 0.06em;
+        }
+    }
+}
+
+.filters {
+    &__wrapper {
+        display: flex;
+    }
+
+    &__field {
+        &+& {
+            padding-left: 16px;
+        }
+
+        input,
+        select {
+            min-width: 200px
+        }
+
+        .field label {
+            padding-bottom: v.$padding-xs;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+    }
+}
+
+.grid {
+    &__controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-bottom: v.$padding-normal-xs;
+    }
+
+    &--search {
+        .field-wrapper {
+            position: relative;
+
+            svg {
+                position: absolute;
+                top: 50%;
+                left: 10px;
+                transform: translate3d(0, -50%, 0);
+                fill: hsla(0, 0%, 30%, 0.6);
+            }
+
+            input {
+                min-width: 280px;
+                min-height: 30px;
+                padding-left: 36px;
+                border-radius: v.$padding-xs-xl;
+            }
+        }
+    }
+}
+
 // add cdk table styles
 .cdk-table {
     width: 100%;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
 }
+
 .cdk-row,
 .cdk-header-row {
     display: flex;
+    border-bottom: 1px solid var(--color-border-table);
 }
+
 .cdk-cell,
 .cdk-header-cell {
-    min-width: 128px;
+    min-width: 160px;
+    padding: 8px 12px;
+}
+
+.cdk-header-cell {
+    font-weight: bold;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+
+    &:hover {
+        border-left-color: var(--color-border-table);
+        border-right-color: var(--color-border-table);
+    }
+}
+
+.cdk-cell {
+    font-size: 0.9em;
+
+    &.cdk-column-TagNumber span {
+        text-decoration: underline;
+        &:hover {
+            color: var(--color-primary);
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+    }
 }
 
 .cdk-column-Gender,
 .cdk-column-Status {
     text-transform: capitalize;
+}
+
+.cdk-column-RecordedDate {
+    min-width: 240px;
 }

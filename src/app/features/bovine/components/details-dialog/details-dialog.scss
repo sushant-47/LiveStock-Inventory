@@ -31,6 +31,12 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
+        transition: all 0.5s;
+
+        &:hover {
+            background-color: var(--color-white);
+            color: hsl(0, 0%, 35%);
+        }
     }
 }
 
