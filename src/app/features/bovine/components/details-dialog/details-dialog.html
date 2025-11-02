@@ -4,7 +4,8 @@
             Cattle Details
             <span class="c-primary">{{info.tagNumber}}</span>
         </div>
-        <div class="close cursor--pointer" (click)="cancel()">+</div>
+        <div class="close cursor--pointer" tabindex="0" (click)="cancel()" (keydown.enter)="cancel()"
+            (keydown.space)="cancel()">+</div>
     </header>
     <div class="dialog-content">
         <cdk-accordion [multi]="true" class="cg-accordion">
@@ -30,10 +31,12 @@
                     }
                 </div>
             </cdk-accordion-item>
+
             <cdk-accordion-item #basicInfoItem="cdkAccordionItem" [expanded]="true" [disabled]="false"
-                class="cg-accordion-item" [class.expanded]="basicInfoItem.expanded">
+                [ngClass]="{'expanded': basicInfoItem.expanded}" class="cg-accordion-item">
                 <div class="cg-accordion-item__wrapper">
-                    <div class="cg-accordion-item-header" (click)="basicInfoItem.toggle()" tabindex="0">
+                    <div class="cg-accordion-item-header" (keyup.enter)="basicInfoItem.toggle()"
+                        (keyup.space)="basicInfoItem.toggle()" (click)="basicInfoItem.toggle()" tabindex="0">
                         Basic Information
                     </div>
                     @if(basicInfoItem.expanded) {
@@ -70,11 +73,13 @@
                     }
                 </div>
             </cdk-accordion-item>
+
             @if ((info.recentEvents || []).length > 0) {
             <cdk-accordion-item #eventItem="cdkAccordionItem" [expanded]="true" [disabled]="false"
-                class="cg-accordion-item recent-event-item" [class.expanded]="eventItem.expanded">
+                [ngClass]="{'expanded': eventItem.expanded}" class="cg-accordion-item recent-event-item">
                 <div class="cg-accordion-item__wrapper">
-                    <div class="cg-accordion-item-header" (click)="eventItem.toggle()" tabindex="0">
+                    <div class="cg-accordion-item-header" (keyup.enter)="eventItem.toggle()"
+                        (keyup.space)="eventItem.toggle()" (click)="eventItem.toggle()" tabindex="0">
                         LiveStock Events
                     </div>
                     @if(eventItem.expanded) {

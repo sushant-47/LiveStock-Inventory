@@ -11,6 +11,18 @@
         padding-top: v.$padding-xl;
     }
 
+    &.expanded {
+        .cg-accordion-item-header {
+
+            &:hover,
+            &:focus-visible {
+                font-size: 1em;
+                box-shadow: 0px 0px 4px 4px hsl(271, 30%, 73%);
+                transform: translate(1px, 1px);
+            }
+        }
+    }
+
     &.basic-accordion {
         .cg-accordion-item-body [data-row] {
             font-size: 0.85em;
@@ -46,6 +58,11 @@
     padding: v.$padding-normal v.$padding-half-xl;
     background-color: var(--color-primary-light);
     cursor: pointer;
+    transition: all 0.05s;
+
+    &:focus-visible {
+        outline: none;
+    }
 }
 
 .cg-accordion-item-body {

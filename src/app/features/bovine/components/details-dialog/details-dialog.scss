@@ -35,9 +35,14 @@
         align-items: center;
         transition: all 0.5s;
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             background-color: var(--color-white);
             color: hsl(0, 0%, 35%);
+        }
+
+        &:focus-visible {
+            outline: none;
         }
     }
 }

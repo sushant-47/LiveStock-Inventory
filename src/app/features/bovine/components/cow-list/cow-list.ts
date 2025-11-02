@@ -126,7 +126,6 @@ export class CowListComponent implements OnInit, OnDestroy {
                 panelClass: 'cow-details-dialog',
                 backdropClass: ['cow-details-dialog-backdrop', 'cdk-overlay-dark-backdrop'],
                 positionStrategy,
-                autoFocus: 'input',
             }
         );
         dialogRef.closed.pipe(
@@ -147,8 +146,8 @@ export class CowListComponent implements OnInit, OnDestroy {
                 },
                 panelClass: 'add-cow-dialog',
                 backdropClass: ['add-cow-dialog-backdrop', 'cdk-overlay-dark-backdrop'],
-                restoreFocus: true,
                 disableClose: true,
+                autoFocus: false,
             }
         );
         dialogRef.closed.pipe(

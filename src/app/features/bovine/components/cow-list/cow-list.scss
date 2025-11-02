@@ -120,10 +120,14 @@
 
     &.cdk-column-TagNumber span {
         text-decoration: underline;
-        &:hover {
+        &:hover,
+        &:focus-visible {
             color: var(--color-primary);
             font-weight: bold;
             transition: color 0.3s;
+        }
+        &:focus-visible {
+            outline: none;
         }
     }
 }

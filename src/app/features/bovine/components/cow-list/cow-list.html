@@ -1,4 +1,3 @@
-
 <main class="page">
     <content class="page__wrapper">
         <div class="page__header">
@@ -74,7 +73,8 @@
                         <ng-container [cdkColumnDef]="COLUMNS.TagNumber">
                             <cdk-header-cell *cdkHeaderCellDef> Tag Number </cdk-header-cell>
                             <cdk-cell class="c-primary-less-light" *cdkCellDef="let row">
-                                <span (click)="showCowDetails(row)" class="cursor--pointer">
+                                <span (click)="showCowDetails(row)" (keydown.enter)="showCowDetails(row)"
+                                    (keydown.space)="showCowDetails(row)" tabindex="0" class="cursor--pointer">
                                     {{row.tagNumber}}
                                 </span>
                             </cdk-cell>

@@ -7,12 +7,13 @@ import { GENDER } from '../../enums/Gender.enum';
 import { STATUS } from '../../enums/Status.enum';
 import { DateRenderer } from '../../renderers/date-renderer/date-renderer';
 import { StatusRenderer } from '../../renderers/status-renderer/status-renderer';
-import { LowerCasePipe } from '@angular/common';
+import { CommonModule, LowerCasePipe } from '@angular/common';
 import { BREED } from '../../enums/Breed.enum';
 
 @Component({
     selector: 'cg-details-dialog',
     imports: [
+        CommonModule,
         LowerCasePipe,
         CdkAccordionModule,
         DateRenderer,
@@ -33,6 +34,10 @@ export class CowDetailsDialog {
     ngOnInit(): void {
         console.log('dialog data', this._dialogData)
         this.info = this._dialogData.cowDetails;
+    }
+
+    ngAfterViewInit(): void {
+        console.log('CowDetailsDialog: ngAfterViewInit');
     }
 
     cancel(): void {

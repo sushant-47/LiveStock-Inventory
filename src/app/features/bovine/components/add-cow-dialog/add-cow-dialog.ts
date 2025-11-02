@@ -8,6 +8,7 @@ import { ControlKeyValue, FormControlKeyValue, getControlKeyValue } from '../../
 import { GENDER } from '../../enums/Gender.enum';
 import { STATUS } from '../../enums/Status.enum';
 import { IDialogData } from './IDialogData';
+import { FormErrorMessages } from '../../constants/FormErrorMessages';
 
 @Component({
     selector: 'cg-add-cow-dialog',
@@ -94,7 +95,11 @@ export class AddCowDialog implements OnInit {
     }
 
     getError(ctrl: ControlKeyValue): string {
-        const [error] = Object.keys(ctrl.control.errors);
-        return error;
+        const [error] = Object.keys(ctrl.control.errors || {});
+        if (!error) {
+            return '';
+        }
+        const errorKey = error as Exclude<keyof typeof FormErrorMessages, 'prototype'>;
+        return FormErrorMessages[errorKey];
     }
 }

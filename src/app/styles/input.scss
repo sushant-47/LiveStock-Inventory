@@ -17,6 +17,7 @@ select {
 
 .form-field {
     font-size: 14px;
+
     .field-wrapper {
         .field {
             display: flex;
@@ -25,6 +26,7 @@ select {
 
             label {
                 padding-bottom: v.$padding-half;
+
                 &.mandatory {
                     &::after {
                         content: '*';
@@ -39,8 +41,10 @@ select {
 
             // native select box
             &.select {
+
                 select,
                 option {
+
                     &,
                     &:hover {
                         cursor: pointer;
@@ -56,6 +60,10 @@ select {
 
         .error {
             color: var(--color-error);
+            font-size: 12px;
+            padding-top: v.$padding-xs;
+            overflow-wrap: anywhere;
+            word-break: break-all;
         }
     }
 }

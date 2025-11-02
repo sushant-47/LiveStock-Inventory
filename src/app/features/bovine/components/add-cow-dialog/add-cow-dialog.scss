@@ -18,6 +18,12 @@
 
     .close {
         transform: rotate(45deg) scale(1.5);
+
+        &:hover,
+        &:focus-visible {
+            outline: none;
+            scale: 1.1;
+        }
     }
 }
 

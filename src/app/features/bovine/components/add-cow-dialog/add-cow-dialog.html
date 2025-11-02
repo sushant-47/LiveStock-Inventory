@@ -1,7 +1,10 @@
 <section class="dialog-container">
     <header class="dialog-header">
         <div> Add Cow </div>
-        <div class="close cursor--pointer" (click)="cancel()">+</div>
+        <div class="close cursor--pointer" tabindex="0" (click)="cancel()" (keydown.enter)="cancel()"
+            (keydown.space)="cancel()">
+            +
+        </div>
     </header>
     <div class="dialog-content">
         <div class="form-content">
@@ -12,11 +15,9 @@
                             <label for="tagNumber" class="mandatory"> Tag Number </label>
                             <input [formControlName]="tagNumber.key" id="tagNumber" />
                         </div>
-                        @if (hasError(tagNumber.control)) {
-                        <div class="error">
+                        <div class="error" [class.visibility--hidden]="!hasError(tagNumber.control)">
                             {{ getError(tagNumber) }}
                         </div>
-                        }
                     </div>
                 </div>
                 <div class="form-field">
@@ -32,11 +33,9 @@
                                 }
                             </select>
                         </div>
-                        @if (hasError(gender.control)) {
-                        <div class="error">
+                        <div class="error" [class.visibility--hidden]="!hasError(gender.control)">
                             {{ getError(gender) }}
                         </div>
-                        }
                     </div>
                 </div>
                 <div class="form-field">
@@ -45,11 +44,9 @@
                             <label for="pen" class="mandatory"> Pen </label>
                             <input [formControlName]="pen.key" id="pen" />
                         </div>
-                        @if (hasError(pen.control)) {
-                        <div class="error">
+                        <div class="error" [class.visibility--hidden]="!hasError(pen.control)">
                             {{ getError(pen) }}
                         </div>
-                        }
                     </div>
                 </div>
                 <div class="form-field">
@@ -68,18 +65,16 @@
                                     In Treatment
                                     }
                                     @default {
-                                        {{status.text | lowercase}}
+                                    {{status.text | lowercase}}
                                     }
                                     }
                                 </option>
                                 }
                             </select>
                         </div>
-                        @if (hasError(status.control)) {
-                        <div class="error">
+                        <div class="error" [class.visibility--hidden]="!hasError(status.control)">
                             {{ getError(status) }}
                         </div>
-                        }
                     </div>
                 </div>
                 <div class="form-field">
@@ -88,11 +83,9 @@
                             <label for="weight"> Weight </label>
                             <input [formControlName]="weight.key" id="weight" />
                         </div>
-                        @if (hasError(weight.control)) {
-                        <div class="error">
+                        <div class="error" [class.visibility--hidden]="!hasError(weight.control)">
                             {{ getError(weight) }}
                         </div>
-                        }
                     </div>
                 </div>
             </form>
