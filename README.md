@@ -11,6 +11,8 @@ Created using:
 
 Best viewed on Laptop, Desktop with minimum resolution 1366 x 768 using Chrome, Edge latest version.
 
+View [this](./DEVELOPMENT.md) file for Design choice, Approach followed and libraries used for Catalog development.
+
 ## Installation
 Install Project dependencies using:
 - node v24.11.0
