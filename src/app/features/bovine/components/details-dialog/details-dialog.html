@@ -70,7 +70,28 @@
                     }
                 </div>
             </cdk-accordion-item>
-
+            @if ((info.recentEvents || []).length > 0) {
+            <cdk-accordion-item #eventItem="cdkAccordionItem" [expanded]="true" [disabled]="false"
+                class="cg-accordion-item recent-event-item" [class.expanded]="eventItem.expanded">
+                <div class="cg-accordion-item__wrapper">
+                    <div class="cg-accordion-item-header" (click)="eventItem.toggle()" tabindex="0">
+                        LiveStock Events
+                    </div>
+                    @if(eventItem.expanded) {
+                    <div class="cg-accordion-item-body">
+                        @for (event of info.recentEvents; track $index) {
+                        <div data-row>
+                            <div class="title">
+                                <cg-date-renderer [date]="event.date" [formatToDateOnly]="true"></cg-date-renderer>
+                            </div>
+                            <div class="content"> {{event.stage}} </div>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+            </cdk-accordion-item>
+            }
         </cdk-accordion>
     </div>
 </section>

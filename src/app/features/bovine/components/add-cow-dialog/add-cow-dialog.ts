@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { LowerCasePipe } from '@angular/common';
 import { AbstractControl, ReactiveFormsModule, type FormControl, type FormGroup } from '@angular/forms';
-import { DialogRef } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { CowFormBuilder } from '../../services/form.builder';
 import { FormControlConstants } from '../../constants/FormControlConstants';
 import { ControlKeyValue, FormControlKeyValue, getControlKeyValue } from '../../../../utils/form/getControlKeyValue';
 import { GENDER } from '../../enums/Gender.enum';
 import { STATUS } from '../../enums/Status.enum';
+import { IDialogData } from './IDialogData';
 
 @Component({
     selector: 'cg-add-cow-dialog',
@@ -41,6 +42,7 @@ export class AddCowDialog implements OnInit {
 
     private _formService: CowFormBuilder = inject(CowFormBuilder);
     private _dialogRef: DialogRef<any> = inject(DialogRef);
+    private _dialogData: IDialogData = inject(DIALOG_DATA);
 
     get tagNumber(): FormControlKeyValue<string> {
         return getControlKeyValue(this.formGroup, FormControlConstants.TAG_NUMBER);
@@ -69,9 +71,18 @@ export class AddCowDialog implements OnInit {
         if (this.formGroup.invalid) {
             return;
         }
-        this._dialogRef.close(
-            this._formService.convertFormDataToTableData(this.formGroup.value)
-        );
+        const isUniqueTagNumber =
+            this._formService.isUniqueTagNumber(
+                this.tagNumber.control.value,
+                this._dialogData.existingTagNumbers
+            );
+        if (!isUniqueTagNumber) {
+            this.tagNumber.control.setErrors({
+                duplicate: true,
+            });
+            return;
+        }
+        this._dialogRef.close(this.formGroup.value);
     }
 
     cancel(): void {

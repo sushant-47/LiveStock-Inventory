@@ -9,7 +9,7 @@ Created using:
 - Typescript v5.9.3
 - Angular CLI v20.3.8
 
-Best viewed on latest Chrome, Edge on Laptop, Desktop with minimum resolution 1366 x 768
+Best viewed on Laptop, Desktop with minimum resolution 1366 x 768 using Chrome, Edge latest version.
 
 ## Installation
 Install Project dependencies using:

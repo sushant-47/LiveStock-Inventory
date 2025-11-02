@@ -18,5 +18,7 @@ Reusable styles and utility functions are kept at `app/styles` and `app/utils` p
 ### Known Limitations
 Routing is not added currently which can affect the user experience while navigating the application.
 
+Data is matched based on a single character of search string.
+
 ### Improvement Areas
 CDK components can be extended as a native library and customised for handling complex scenarios while controlling the UI behavior.

@@ -1,0 +1,52 @@
+[
+    {
+        "tagNumber": "C00001",
+        "stage": "Nutrition",
+        "date": "2024-02-11"
+    },
+    {
+        "tagNumber": "C00001",
+        "stage": "Breeding",
+        "date": "2024-06-25"
+    },
+    {
+        "tagNumber": "C00001",
+        "stage": "Gestation",
+        "date": "2024-08-05"
+    },
+    {
+        "tagNumber": "C00001",
+        "stage": "Weight Check",
+        "date": "2024-12-15"
+    },
+    {
+        "tagNumber": "C00001",
+        "stage": "Health Inspection",
+        "date": "2025-06-01"
+    },
+    {
+        "tagNumber": "C00002",
+        "stage": "Incubation",
+        "date": "2022-04-21"
+    },
+    {
+        "tagNumber": "C00002",
+        "stage": "Moved to another Pen",
+        "date": "2022-04-27"
+    },
+    {
+        "tagNumber": "C00002",
+        "stage": "Harvesting",
+        "date": "2024-06-10"
+    },
+    {
+        "tagNumber": "C00002",
+        "stage": "Treatment",
+        "date": "2025-03-11"
+    },
+    {
+        "tagNumber": "C00002",
+        "stage": "Recovering",
+        "date": "2025-05-20"
+    }
+]

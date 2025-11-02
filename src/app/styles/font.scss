@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('./fonts/Roboto\ Flex/RobotoFlex-VariableFont.ttf');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('./fonts/Roboto\ Flex/RobotoFlex-VariableFont.ttf');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./fonts/Roboto/Roboto-VariableFont.ttf');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./fonts/Roboto/Roboto-VariableFont-Italic.ttf');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+span.load-Roboto-secondary-font {
+    font-family: 'Roboto';
+}

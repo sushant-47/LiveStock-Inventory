@@ -11,14 +11,17 @@ import { STATUS } from '../../enums/Status.enum';
 import { AddCowDialog } from '../add-cow-dialog/add-cow-dialog';
 import { CowFormBuilder } from '../../services/form.builder';
 import { CowDetailsDialog } from '../details-dialog/details-dialog';
-import DetailsJson from '../../../../data/cows.json';
 import { Overlay } from '@angular/cdk/overlay';
 import { ICowDetails } from '../../models/ICowDetails';
 import { BREED } from '../../enums/Breed.enum';
-import { IDialogData as IDetailsDialogData } from '../details-dialog/IDialogData';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DateRenderer } from '../../renderers/date-renderer/date-renderer';
 import { StatusRenderer } from '../../renderers/status-renderer/status-renderer';
+import { IDialogData as IDetailsDialogData } from '../details-dialog/IDialogData';
+import { IDialogData as IFormDialogData } from '../add-cow-dialog/IDialogData';
+import DetailsJson from '../../../../data/cows.json';
+import EventsJson from '../../../../data/recentEvents.json';
+import { IEventLog } from '../../models/IEventLog';
 
 @Component({
     selector: 'cg-cow-list',
@@ -69,6 +72,7 @@ export class CowListComponent implements OnInit, OnDestroy {
 
 
     private _fb: FormBuilder = inject(FormBuilder);
+    private _formService: CowFormBuilder = inject(CowFormBuilder);
     private _dialogService: Dialog = inject(Dialog);
     private _overlay: Overlay = inject(Overlay);
     private _destroy$: Subject<void> = new Subject();
@@ -80,11 +84,12 @@ export class CowListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        // dummy data
         const data = new CowData({
-            tagNumber: 'C00001',
+            tagNumber: 'C00008',
             gender: GENDER.MALE,
             status: STATUS.ACTIVE,
-            pen: 'yard',
+            pen: 'Yard',
             recordedDate: new Date().toISOString(),
             weight: '300',
         });
@@ -98,7 +103,7 @@ export class CowListComponent implements OnInit, OnDestroy {
             takeUntil(this._destroy$)
         ).subscribe({
             next: () => {
-                console.log('merge filters')
+                this._applySearchAndFilters();
             }
         });
     }
@@ -112,7 +117,7 @@ export class CowListComponent implements OnInit, OnDestroy {
         const cowDetails = this._getCowDetails(cow);
         const positionStrategy =
             this._overlay.position().global().right('0px');
-        const dialogRef = this._dialogService.open<void, IDetailsDialogData>(
+        const dialogRef = this._dialogService.open<void, IDetailsDialogData, CowDetailsDialog>(
             CowDetailsDialog,
             {
                 data: {
@@ -134,12 +139,15 @@ export class CowListComponent implements OnInit, OnDestroy {
     }
 
     openAddCowDialog(): void {
-        const dialogRef: DialogRef<CowData, AddCowDialog> = this._dialogService.open(
+        const dialogRef = this._dialogService.open<any, IFormDialogData, AddCowDialog>(
             AddCowDialog,
             {
+                data: {
+                    existingTagNumbers: this.cows.map((cow) => cow.tagNumber)
+                },
                 panelClass: 'add-cow-dialog',
                 backdropClass: ['add-cow-dialog-backdrop', 'cdk-overlay-dark-backdrop'],
-                autoFocus: 'input',
+                restoreFocus: true,
                 disableClose: true,
             }
         );
@@ -149,7 +157,12 @@ export class CowListComponent implements OnInit, OnDestroy {
         ).subscribe({
             next: (result) => {
                 if (!!result) {
-                    this._addCowToDataSource(result);
+                    this._addCowToDataSource(
+                        this._formService.convertFormDataToTableData(result)
+                    );
+                    if (this._hasSearchOrFilterActive()) {
+                        this._applySearchAndFilters();
+                    }
                 }
             }
         });
@@ -165,16 +178,43 @@ export class CowListComponent implements OnInit, OnDestroy {
         const tagNumber: string = this.tagNumCtrl.value;
         const status: STATUS | -1 = this.statusCtrl.value;
         const pen: string = this.penCtrl.value;
-        let currentData: CowData[] = [];
+        /** search data by Tag Number */
+        let currentData: CowData[] = [...this._getSearchResults(tagNumber, { tagNumber: true })];
+        /** search data by Pen */
+        currentData = [...this._getSearchResults(pen, { pen: true }, currentData)];
 
-        if (!!tagNumber) {
-            currentData = currentData.concat(this._getSearchResults(tagNumber));
+        if (status !== -1) {
+            currentData = currentData.filter((cow) => {
+                return cow.status === status;
+            });
         }
+        this.dataSource.setItems(currentData);
     }
 
-    private _getSearchResults(tagNumber: string): CowData[] {
-        return this.cows.filter((cow) => {
-            return cow.tagNumber.toLowerCase().includes(tagNumber.toLowerCase());
+    private _getSearchResults(
+        searchStr: string,
+        opts: {
+            tagNumber?: boolean,
+            pen?: boolean,
+        },
+        dataToSearch: CowData[] = this.cows,
+    ): CowData[] {
+        if (!searchStr) {
+            return dataToSearch;
+        }
+        const searchTagCharArr = searchStr.toLowerCase().split('');
+        return dataToSearch.filter((cow) => {
+            let cellCharArr: string[];
+            if (opts.tagNumber) {
+                cellCharArr = cow.tagNumber.toLowerCase().split('');
+            }
+            if (opts.pen) {
+                cellCharArr = cow.pen.toLowerCase().split('');
+            }
+            /** Search by each character of input string */
+            return searchTagCharArr.some((searchChar) => {
+                return cellCharArr.includes(searchChar);
+            });
         });
     }
 
@@ -182,10 +222,11 @@ export class CowListComponent implements OnInit, OnDestroy {
         let cowDetails: ICowDetails;
         const cowJson =
             DetailsJson.find(
-                (details: Partial<ICowDetails>) => details.tagNumber === cow.tagNumber
+                (details: Partial<ICowDetails>) => details.tagNumber.toLowerCase() === cow.tagNumber.toLowerCase()
             );
         if (!!cowJson) {
             cowDetails = Object.assign({}, cowJson, JSON.parse(JSON.stringify(cow)));
+            cowDetails.recentEvents = this._getCowEventDetails(cow.tagNumber);
         } else {
             const addedData: Partial<ICowDetails> = {
                 "dailyWeightGain": "",
@@ -195,6 +236,10 @@ export class CowListComponent implements OnInit, OnDestroy {
             cowDetails = Object.assign({}, addedData, JSON.parse(JSON.stringify(cow)));
         }
         return cowDetails;
+    }
+
+    private _getCowEventDetails(tagNumber: string): IEventLog[] {
+        return EventsJson.filter((eventLog) => eventLog.tagNumber.toLowerCase() === tagNumber.toLowerCase());
     }
 
     private _addCowToDataSource(cow: CowData): void {

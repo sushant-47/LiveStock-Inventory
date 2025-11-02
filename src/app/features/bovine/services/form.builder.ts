@@ -1,9 +1,8 @@
 import { inject, Injectable } from "@angular/core";
-import { FormBuilder, FormControl, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { FormControlConstants } from "../constants/FormControlConstants";
 import { STATUS } from "../enums/Status.enum";
 import { CowData } from "../models/CowData";
-import { GENDER } from "../enums/Gender.enum";
 
 @Injectable()
 export class CowFormBuilder {
@@ -28,6 +27,14 @@ export class CowFormBuilder {
                 [Validators.pattern(new RegExp('^\\s*\\d+\\s*$'))]
             ]
         });
+    }
+
+    isUniqueTagNumber(tagNumber: string, tagNumbers: string[]): boolean {
+        const formattedTagNumbers = tagNumbers.map((tag) => tag.toLowerCase());
+        if (formattedTagNumbers.includes(tagNumber.toLowerCase())) {
+            return false;
+        }
+        return true;
     }
 
     convertFormDataToTableData(formData: any): CowData {

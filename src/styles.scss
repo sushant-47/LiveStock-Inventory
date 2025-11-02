@@ -1,5 +1,6 @@
 @use '@angular/cdk' as cdk;
 @use './app/styles/variables' as v;
+@use './app/styles/font.scss';
 @use './app/styles//color.scss';
 @use './app/styles/button.scss';
 @use './app/styles/input.scss';
@@ -9,7 +10,7 @@
 @include cdk.overlay();
 
 html {
-    font-family: 'Roboto', Courier, monospace;
+    font-family: 'Roboto Flex', 'Roboto', Courier, monospace;
     --color-primary: hsl(271, 76%, 53%);
     --color-primary-ll: hsl(271, 76%, 70%);
     --color-primary-light: hsl(271, 76%, 85%);

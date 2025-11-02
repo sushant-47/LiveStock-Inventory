@@ -12,3 +12,9 @@
         cursor: pointer;
     }
 }
+
+.visibility {
+    &--hidden {
+        visibility: hidden;
+    }
+}

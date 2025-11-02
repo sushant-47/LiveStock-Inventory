@@ -1,0 +1,15 @@
+{
+    "stages": [
+        "Nutrition",
+        "Breeding",
+        "Gestation",
+        "Weight Check",
+        "Incubation",
+        "Moved to another Pen",
+        "Processing/Harvesting",
+        "Health Inspection",
+        "Treatment",
+        "Recovering",
+        "Death"
+    ]
+}
