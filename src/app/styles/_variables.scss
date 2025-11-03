@@ -1,12 +1,12 @@
 @use 'sass:math';
 
 $padding-normal: 16px;
-$padding-normal-xs: $padding-normal * 1.25;
-$padding-xl: $padding-normal * 1.5;
-$padding-xxl: $padding-normal * 2;
-$padding-large: $padding-normal * 3;
-$padding-half: math.div($padding-normal, 2);
-$padding-half-xl: $padding-half * 1.5;
-$padding-xs: math.div($padding-normal, 4);
-$padding-xs-xl: $padding-xs * 1.5;
-$padding-xxs: math.div($padding-normal, 8);
+$padding-normal-xs: $padding-normal * 1.25; // 20
+$padding-xl: $padding-normal * 1.5; // 24
+$padding-xxl: $padding-normal * 2; // 32
+$padding-large: $padding-normal * 3; // 48
+$padding-half: math.div($padding-normal, 2); // 8
+$padding-half-xl: $padding-half * 1.5; // 12
+$padding-xs: math.div($padding-normal, 4); // 4
+$padding-xs-xl: $padding-xs * 1.5; // 6
+$padding-xxs: math.div($padding-normal, 8); // 2

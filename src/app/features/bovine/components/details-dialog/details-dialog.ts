@@ -32,12 +32,8 @@ export class CowDetailsDialog {
     private _dialogData: IDialogData = inject(DIALOG_DATA);
 
     ngOnInit(): void {
-        console.log('dialog data', this._dialogData)
+        console.log('dialog data', this._dialogData);
         this.info = this._dialogData.cowDetails;
-    }
-
-    ngAfterViewInit(): void {
-        console.log('CowDetailsDialog: ngAfterViewInit');
     }
 
     cancel(): void {
