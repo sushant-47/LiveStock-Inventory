@@ -6,7 +6,9 @@
         "start": "ng serve",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "test": "ng test",
+        "build-gh": "ng build --output-path docs --base-href /LiveStock-Inventory/",
+        "postbuild-gh": "mv ./docs/browser/* ./docs/"
     },
     "prettier": {
         "printWidth": 100,
