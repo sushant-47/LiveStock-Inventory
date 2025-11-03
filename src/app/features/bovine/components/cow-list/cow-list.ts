@@ -22,6 +22,7 @@ import { IDialogData as IFormDialogData } from '../add-cow-dialog/IDialogData';
 import DetailsJson from '../../../../data/cows.json';
 import EventsJson from '../../../../data/recentEvents.json';
 import { IEventLog } from '../../models/IEventLog';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'cg-cow-list',
@@ -70,17 +71,18 @@ export class CowListComponent implements OnInit, OnDestroy {
                 }
             });
 
-
     private _fb: FormBuilder = inject(FormBuilder);
-    private _formService: CowFormBuilder = inject(CowFormBuilder);
+    private _route: ActivatedRoute = inject(ActivatedRoute);
     private _dialogService: Dialog = inject(Dialog);
     private _overlay: Overlay = inject(Overlay);
+    private _formService: CowFormBuilder = inject(CowFormBuilder);
     private _destroy$: Subject<void> = new Subject();
 
     constructor() {
         this.statusCtrl = this._fb.control(-1);
         this.penCtrl = this._fb.control('');
         this.tagNumCtrl = this._fb.control('');
+        console.log(this._route)
     }
 
     ngOnInit(): void {
