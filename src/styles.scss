@@ -5,7 +5,6 @@
 @use './app/styles/button.scss';
 @use './app/styles/input.scss';
 @use './app/styles/display.scss';
-@use './app/styles/accordion.scss';
 
 @include cdk.overlay();
 
@@ -19,6 +18,7 @@ html {
     --color-white: hsl(0, 0%, 100%);
     --color-black: #000;
     --color-error: hsl(0, 80%, 35%);
+    --color-error-light: hsl(0, 80%, 80%);
     --color-border-table: hsl(0, 0%, 75%);
 }
 

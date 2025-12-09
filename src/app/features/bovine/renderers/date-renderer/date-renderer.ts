@@ -1,10 +1,10 @@
-import { Component, Input } from "@angular/core";
-import { formatToLocaleDateTime } from "../../../../utils/date/formatToLocaleDateTime";
-import { formatToLocaleDate } from "../../../../utils/date/formatToLocaleDate";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { formatToLocaleDate, formatToLocaleDateTime } from "@lib/utils";
 
 @Component({
     selector: 'cg-date-renderer',
-    templateUrl: './date-renderer.html'
+    templateUrl: './date-renderer.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateRenderer {
     @Input({ required: true}) date: string | Date;

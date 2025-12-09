@@ -13,6 +13,13 @@ select {
         outline: none;
         box-shadow: 0px 0px 4px 2px var(--color-primary-light);
     }
+    &.ng-invalid.ng-dirty,
+    &.ng-invalid.ng-touched {
+        border-color: var(--color-error);
+        &:focus-visible {
+            box-shadow: 0px 0px 4px 2px var(--color-error-light);
+        }
+    }
 }
 
 .form-field {
@@ -64,6 +71,15 @@ select {
             padding-top: v.$padding-xs;
             overflow-wrap: anywhere;
             word-break: break-all;
+
+            &.invisible {
+                visibility: hidden;
+                color: transparent;
+                &::after {
+                    // constant height for error text
+                    content: '.';
+                }
+            }
         }
     }
 }

@@ -15,7 +15,7 @@
                             <label for="tagNumber" class="mandatory"> Tag Number </label>
                             <input [formControlName]="tagNumber.key" id="tagNumber" />
                         </div>
-                        <div class="error" [class.visibility--hidden]="!hasError(tagNumber.control)">
+                        <div class="error" [class.invisible]="!hasError(tagNumber.control)">
                             {{ getError(tagNumber) }}
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                                 }
                             </select>
                         </div>
-                        <div class="error" [class.visibility--hidden]="!hasError(gender.control)">
+                        <div class="error" [class.invisible]="!hasError(gender.control)">
                             {{ getError(gender) }}
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <label for="pen" class="mandatory"> Pen </label>
                             <input [formControlName]="pen.key" id="pen" />
                         </div>
-                        <div class="error" [class.visibility--hidden]="!hasError(pen.control)">
+                        <div class="error" [class.invisible]="!hasError(pen.control)">
                             {{ getError(pen) }}
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                 }
                             </select>
                         </div>
-                        <div class="error" [class.visibility--hidden]="!hasError(status.control)">
+                        <div class="error" [class.invisible]="!hasError(status.control)">
                             {{ getError(status) }}
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                             <label for="weight"> Weight </label>
                             <input [formControlName]="weight.key" id="weight" />
                         </div>
-                        <div class="error" [class.visibility--hidden]="!hasError(weight.control)">
+                        <div class="error" [class.invisible]="!hasError(weight.control)">
                             {{ getError(weight) }}
                         </div>
                     </div>

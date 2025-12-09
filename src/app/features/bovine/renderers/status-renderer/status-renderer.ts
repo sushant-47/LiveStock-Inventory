@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { STATUS } from "../../enums/Status.enum";
 import { LowerCasePipe } from "@angular/common";
 
@@ -10,7 +10,8 @@ import { LowerCasePipe } from "@angular/common";
     ],
     imports: [
         LowerCasePipe,
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusRenderer {
     @Input({ required: true }) status: STATUS;

@@ -1,26 +1,25 @@
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { LowerCasePipe } from '@angular/common';
+import { CgAccordionModule } from '@lib/accordion';
 import { IDialogData } from './IDialogData';
-import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { ICowDetails } from '../../models/ICowDetails';
 import { GENDER } from '../../enums/Gender.enum';
-import { STATUS } from '../../enums/Status.enum';
 import { DateRenderer } from '../../renderers/date-renderer/date-renderer';
 import { StatusRenderer } from '../../renderers/status-renderer/status-renderer';
-import { CommonModule, LowerCasePipe } from '@angular/common';
 import { BREED } from '../../enums/Breed.enum';
 
 @Component({
     selector: 'cg-details-dialog',
     imports: [
-        CommonModule,
         LowerCasePipe,
-        CdkAccordionModule,
+        CgAccordionModule,
         DateRenderer,
         StatusRenderer,
     ],
     templateUrl: './details-dialog.html',
     styleUrl: './details-dialog.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CowDetailsDialog {
     info: ICowDetails;

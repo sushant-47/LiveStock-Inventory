@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { LowerCasePipe } from '@angular/common';
-import { AbstractControl, ReactiveFormsModule, type FormControl, type FormGroup } from '@angular/forms';
+import { AbstractControl, ReactiveFormsModule, type FormGroup } from '@angular/forms';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { getControlKeyValue } from '@lib/form';
+import { ControlKeyValue, FormControlKeyValue } from '@lib/types';
 import { CowFormBuilder } from '../../services/form.builder';
 import { FormControlConstants } from '../../constants/FormControlConstants';
-import { ControlKeyValue, FormControlKeyValue, getControlKeyValue } from '../../../../utils/form/getControlKeyValue';
 import { GENDER } from '../../enums/Gender.enum';
 import { STATUS } from '../../enums/Status.enum';
 import { IDialogData } from './IDialogData';

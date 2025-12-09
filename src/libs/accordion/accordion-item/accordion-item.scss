@@ -1,0 +1,60 @@
+@use "variables" as v;
+
+:host {
+    display: block;
+    padding-bottom: v.$padding-xl;
+
+    &+& {
+        padding-top: v.$padding-xl;
+    }
+
+    &.expanded {
+        ::ng-deep {
+            :empty {}
+
+            .cg-accordion-item-header {
+
+                &:hover,
+                &:focus-visible {
+                    font-size: 1em;
+                    box-shadow: 0px 0px 4px 4px hsl(271, 30%, 73%);
+                    transform: translate(1px, 1px);
+                }
+            }
+        }
+    }
+
+    &.basic-accordion {
+        ::ng-deep {
+            :empty {}
+
+            .cg-accordion-item-body [data-row] {
+                font-size: 0.85em;
+
+                &:first-child {
+                    padding-top: 0;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+                }
+
+                .title {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .cg-accordion-item__wrapper {
+            border: none;
+        }
+    }
+}
+
+.cg-accordion-item {
+    &__wrapper {
+        border: 1px solid hsl(0, 0%, 75%);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+}

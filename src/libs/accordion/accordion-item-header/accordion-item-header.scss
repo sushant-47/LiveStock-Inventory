@@ -1,0 +1,19 @@
+@use 'variables' as v;
+
+:host {
+    display: block;
+    font-size: 0.95em;
+    font-weight: bold;
+    padding: v.$padding-normal v.$padding-half-xl;
+    background-color: var(--color-primary-light);
+    cursor: pointer;
+    transition: all 0.05s;
+
+    &:focus-visible {
+        outline: none;
+    }
+
+    &.hide {
+        display: none;
+    }
+}

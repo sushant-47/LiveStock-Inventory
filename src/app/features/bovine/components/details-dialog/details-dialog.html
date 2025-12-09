@@ -8,95 +8,78 @@
             (keydown.space)="cancel()">+</div>
     </header>
     <div class="dialog-content">
-        <cdk-accordion [multi]="true" class="cg-accordion">
-            <cdk-accordion-item #infoItem="cdkAccordionItem" [expanded]="true" [disabled]="true"
-                class="cg-accordion-item basic-accordion">
-                <div class="cg-accordion-item__wrapper">
-                    <div class="cg-accordion-item-header hide" (click)="infoItem.toggle()" tabindex="0"></div>
-                    @if(infoItem.expanded) {
-                    <div class="cg-accordion-item-body">
-                        <div data-row>
-                            <div class="title"> Ear tag Number </div>
-                            <div class="content"> {{info.tagNumber}} </div>
-                        </div>
-                        <div data-row>
-                            <div class="title"> Sex </div>
-                            <div class="content capitalise"> {{GENDER[info.gender] | lowercase}} </div>
-                        </div>
-                        <div data-row>
-                            <div class="title"> Pen </div>
-                            <div class="content"> {{info.pen}} </div>
-                        </div>
+        <cg-accordion [multi]="true">
+            <cg-accordion-item #infoItem="cdkAccordionItem" [isBasic]="true" [expanded]="true" [disabled]="true">
+                <cg-accordion-item-content aria-label="Main section">
+                    <div data-row>
+                        <div class="title"> Ear tag Number </div>
+                        <div class="content"> {{info.tagNumber}} </div>
                     </div>
-                    }
-                </div>
-            </cdk-accordion-item>
+                    <div data-row>
+                        <div class="title"> Sex </div>
+                        <div class="content capitalise"> {{GENDER[info.gender] | lowercase}} </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Pen </div>
+                        <div class="content"> {{info.pen}} </div>
+                    </div>
+                </cg-accordion-item-content>
+            </cg-accordion-item>
 
-            <cdk-accordion-item #basicInfoItem="cdkAccordionItem" [expanded]="true" [disabled]="false"
-                [ngClass]="{'expanded': basicInfoItem.expanded}" class="cg-accordion-item">
-                <div class="cg-accordion-item__wrapper">
-                    <div class="cg-accordion-item-header" (keyup.enter)="basicInfoItem.toggle()"
-                        (keyup.space)="basicInfoItem.toggle()" (click)="basicInfoItem.toggle()" tabindex="0">
-                        Basic Information
-                    </div>
-                    @if(basicInfoItem.expanded) {
-                    <div class="cg-accordion-item-body">
-                        <div data-row>
-                            <div class="title"> Status </div>
-                            <div class="content">
-                                <cg-status-renderer [status]="info.status"></cg-status-renderer>
-                            </div>
-                        </div>
-                        <div data-row>
-                            <div class="title"> Recorded Date </div>
-                            <div class="content">
-                                <cg-date-renderer [date]="info.recordedDate"></cg-date-renderer>
-                            </div>
-                        </div>
-                        <div data-row>
-                            <div class="title"> Breed </div>
-                            <div class="content capitalise"> {{(BREED[info.breed] ?? '-') | lowercase}} </div>
-                        </div>
-                        <div data-row>
-                            <div class="title"> Breed Origin </div>
-                            <div class="content"> {{info.breedOrigin ? info.breedOrigin : '-'}} </div>
-                        </div>
-                        <div data-row>
-                            <div class="title"> Weight </div>
-                            <div class="content"> {{info.weight ? info.weight : '-'}} </div>
-                        </div>
-                        <div data-row>
-                            <div class="title"> Daily Weight Gain </div>
-                            <div class="content"> {{info.dailyWeightGain ? info.dailyWeightGain : '-'}} </div>
+            <cg-accordion-item #basicInfoItem="cdkAccordionItem" [expanded]="true" [disabled]="false">
+                <cg-accordion-item-header>
+                    Basic Information
+                </cg-accordion-item-header>
+                <cg-accordion-item-content>
+                    <div data-row>
+                        <div class="title"> Status </div>
+                        <div class="content">
+                            <cg-status-renderer [status]="info.status"></cg-status-renderer>
                         </div>
                     </div>
-                    }
-                </div>
-            </cdk-accordion-item>
+                    <div data-row>
+                        <div class="title"> Recorded Date </div>
+                        <div class="content">
+                            <cg-date-renderer [date]="info.recordedDate"></cg-date-renderer>
+                        </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Breed </div>
+                        <div class="content capitalise"> {{(BREED[info.breed] ?? '-') | lowercase}} </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Breed Origin </div>
+                        <div class="content"> {{info.breedOrigin ? info.breedOrigin : '-'}} </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Weight </div>
+                        <div class="content"> {{info.weight ? info.weight : '-'}} </div>
+                    </div>
+                    <div data-row>
+                        <div class="title"> Daily Weight Gain </div>
+                        <div class="content"> {{info.dailyWeightGain ? info.dailyWeightGain : '-'}} </div>
+                    </div>
+                </cg-accordion-item-content>
+            </cg-accordion-item>
 
             @if ((info.recentEvents || []).length > 0) {
-            <cdk-accordion-item #eventItem="cdkAccordionItem" [expanded]="true" [disabled]="false"
-                [ngClass]="{'expanded': eventItem.expanded}" class="cg-accordion-item recent-event-item">
-                <div class="cg-accordion-item__wrapper">
-                    <div class="cg-accordion-item-header" (keyup.enter)="eventItem.toggle()"
-                        (keyup.space)="eventItem.toggle()" (click)="eventItem.toggle()" tabindex="0">
-                        LiveStock Events
-                    </div>
-                    @if(eventItem.expanded) {
-                    <div class="cg-accordion-item-body">
-                        @for (event of info.recentEvents; track $index) {
-                        <div data-row>
-                            <div class="title">
-                                <cg-date-renderer [date]="event.date" [formatToDateOnly]="true"></cg-date-renderer>
-                            </div>
-                            <div class="content"> {{event.stage}} </div>
+            <cg-accordion-item #eventItem="cdkAccordionItem" [expanded]="true" [disabled]="false"
+                class="recent-event-item">
+                <cg-accordion-item-header>
+                    LiveStock Events
+                </cg-accordion-item-header>
+                <cg-accordion-item-content>
+                    @for (event of info.recentEvents; track event) {
+                    <div data-row>
+                        <div class="title">
+                            <cg-date-renderer [date]="event.date" [formatToDateOnly]="true"></cg-date-renderer>
                         </div>
-                        }
+                        <div class="content"> {{event.stage}} </div>
                     </div>
                     }
-                </div>
-            </cdk-accordion-item>
+                </cg-accordion-item-content>
+            </cg-accordion-item>
             }
-        </cdk-accordion>
+        </cg-accordion>
     </div>
 </section>
