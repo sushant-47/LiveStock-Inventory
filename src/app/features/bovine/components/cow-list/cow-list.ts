@@ -23,6 +23,7 @@ import DetailsJson from '../../../../data/cows.json';
 import EventsJson from '../../../../data/recentEvents.json';
 import { IEventLog } from '../../models/IEventLog';
 import { ActivatedRoute } from '@angular/router';
+import { CgHeaderRow, CgHeaderRowDef, CgRow, CgRowDef } from '@lib/table';
 
 @Component({
     selector: 'cg-cow-list',
@@ -33,6 +34,10 @@ import { ActivatedRoute } from '@angular/router';
         DialogModule,
         DateRenderer,
         StatusRenderer,
+        CgHeaderRowDef,
+        CgRowDef,
+        CgHeaderRow,
+        CgRow
     ],
     providers: [
         Dialog,

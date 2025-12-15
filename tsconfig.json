@@ -29,7 +29,10 @@
             ],
             "@lib/utils": [
                 "src/libs/utils/index.ts"
-            ]
+            ],
+            "@lib/table": [
+                "src/libs/table/index.ts"
+            ],
         }
     },
     "angularCompilerOptions": {
