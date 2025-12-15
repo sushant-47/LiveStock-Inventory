@@ -8,7 +8,9 @@
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "build-gh": "ng build --output-path docs --base-href /LiveStock-Inventory/",
-        "postbuild-gh": "mv ./docs/browser/* ./docs/"
+        "postbuild-gh": "mv ./docs/browser/* ./docs/",
+        "build-netlify": "ng build --output-path docs --base-href /",
+        "postbuild-netlify": "mv ./docs/browser/* ./docs/"
     },
     "prettier": {
         "printWidth": 100,
