@@ -1,14 +1,14 @@
 {
-    "$schema": "node_modules/nx/schemas/project-schema.json",
     "name": "catalog",
+    "$schema": "node_modules/nx/schemas/project-schema.json",
     "projectType": "application",
+    "sourceRoot": "src",
+    "prefix": "cg",
     "generators": {
         "@schematics/angular:component": {
             "style": "scss"
         }
     },
-    "sourceRoot": "src",
-    "prefix": "cg",
     "targets": {
         "build": {
             "executor": "@angular/build:application",
@@ -23,13 +23,9 @@
                     },
                     "src/_redirects"
                 ],
-                "styles": [
-                    "src/styles.scss"
-                ],
+                "styles": ["src/styles.scss"],
                 "stylePreprocessorOptions": {
-                    "includePaths": [
-                        "src/app/styles"
-                    ]
+                    "includePaths": ["src/app/styles"]
                 },
                 "outputPath": "dist/catalog"
             },
@@ -56,9 +52,7 @@
                 }
             },
             "defaultConfiguration": "production",
-            "outputs": [
-                "{options.outputPath}"
-            ]
+            "outputs": ["{options.outputPath}"]
         },
         "serve": {
             "executor": "@angular/build:dev-server",
@@ -76,19 +70,10 @@
             "executor": "@angular/build:extract-i18n"
         },
         "test": {
-            "executor": "@angular/build:karma",
+            "executor": "@nx/vitest:test",
+            "outputs": ["{options.reportsDirectory}"],
             "options": {
-                "tsConfig": "tsconfig.spec.json",
-                "inlineStyleLanguage": "scss",
-                "assets": [
-                    {
-                        "glob": "**/*",
-                        "input": "public"
-                    }
-                ],
-                "styles": [
-                    "src/styles.scss"
-                ]
+                "reportsDirectory": "coverage/catalog"
             }
         }
     }

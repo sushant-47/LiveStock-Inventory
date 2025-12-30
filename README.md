@@ -29,6 +29,12 @@ Once the server is running, open your browser and navigate to `http://localhost:
 
 > `data` folder contains mock data for backend.
 
+## Testing
+Install `@nx/vitest` plugin for testing using vitest as task runner and jasmine framework
+- npm x -- nx add @nx/vitest
+- npm x -- nx g @nx/vitest:configuration --project=<project-name>
+
+
 ## Deploy to Github Pages
 1. Build application in production mode:
 ```bash
