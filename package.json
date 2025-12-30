@@ -3,13 +3,13 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --no-hmr --live-reload=false",
-        "build": "ng build",
-        "watch": "ng build --watch --configuration development",
-        "test": "ng test",
-        "build-gh": "ng build --output-path docs --base-href /LiveStock-Inventory/",
+        "start": "nx serve --no-hmr --live-reload=false",
+        "build": "nx build",
+        "watch": "nx build --watch --configuration development",
+        "test": "nx test",
+        "build-gh": "nx build --output-path docs --base-href /LiveStock-Inventory/",
         "postbuild-gh": "mv ./docs/browser/* ./docs/",
-        "build-netlify": "ng build --output-path docs --base-href /",
+        "build-netlify": "nx build --output-path docs --base-href /",
         "postbuild-netlify": "mv ./docs/browser/* ./docs/"
     },
     "prettier": {
@@ -37,9 +37,14 @@
         "tslib": "^2.3.0"
     },
     "devDependencies": {
+        "@angular-devkit/core": "~20.3.8",
+        "@angular-devkit/schematics": "~20.3.8",
         "@angular/build": "~20.3.8",
         "@angular/cli": "~20.3.8",
         "@angular/compiler-cli": "~20.3.0",
+        "@nx/angular": "21.6.6",
+        "@nx/workspace": "21.6.6",
+        "@schematics/angular": "~20.3.8",
         "@types/jasmine": "~5.1.0",
         "jasmine-core": "~5.9.0",
         "karma": "~6.4.0",
@@ -47,6 +52,7 @@
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.1.0",
+        "nx": "21.6.6",
         "typescript": "~5.9.2"
     }
 }
