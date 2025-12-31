@@ -5,14 +5,6 @@
             "cache": true,
             "dependsOn": ["^build"],
             "inputs": ["production", "^production"]
-        },
-        "test": {
-            "cache": true,
-            "inputs": ["default", "^production"]
-        },
-        "@nx/vitest:test": {
-            "cache": true,
-            "inputs": ["default", "^production"]
         }
     },
     "namedInputs": {
@@ -22,7 +14,18 @@
             "default",
             "!{projectRoot}/tsconfig.spec.json",
             "!{projectRoot}/**/*.spec.[jt]s",
-            "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)"
+            "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+            "!{projectRoot}/jest.config.[jt]s",
+            "!{projectRoot}/src/test-setup.[jt]s",
+            "!{projectRoot}/test-setup.[jt]s"
         ]
-    }
+    },
+    "plugins": [
+        {
+            "plugin": "@nx/jest/plugin",
+            "options": {
+                "targetName": "test"
+            }
+        }
+    ]
 }

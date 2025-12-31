@@ -30,9 +30,11 @@ Once the server is running, open your browser and navigate to `http://localhost:
 > `data` folder contains mock data for backend.
 
 ## Testing
-Install `@nx/vitest` plugin for testing using vitest as task runner and jasmine framework
-- npm x -- nx add @nx/vitest
-- npm x -- nx g @nx/vitest:configuration --project=<project-name>
+Install `@nx/jest` plugin for testing:
+- npm x -- nx add @nx/jest
+- npm x -- nx g @nx/jest:configuration --project=<project-name>
+
+Add `moduleNameMapper` for tsconfig paths in `jest.config.ts`.
 
 
 ## Deploy to Github Pages

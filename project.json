@@ -70,10 +70,19 @@
             "executor": "@angular/build:extract-i18n"
         },
         "test": {
-            "executor": "@nx/vitest:test",
-            "outputs": ["{options.reportsDirectory}"],
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage"],
             "options": {
-                "reportsDirectory": "coverage/catalog"
+                "jestConfig": "{workspaceRoot}/jest.config.ts",
+                "debug": false,
+                "watchPathIgnorePatterns": [
+                    "{workspaceRoot}/node_modules/",
+                    "{workspaceRoot}/dist/"
+                ],
+                "_comment": [
+                    "Use testMatch, findRelatedTests options to test specific test files using regex, a comma-separated list respectively.",
+                    "See https://jestjs.io/docs/configuration#testmatch-arraystring"
+                ]
             }
         }
     }

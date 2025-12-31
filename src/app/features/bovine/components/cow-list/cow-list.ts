@@ -87,7 +87,7 @@ export class CowListComponent implements OnInit, OnDestroy {
         this.statusCtrl = this._fb.control(-1);
         this.penCtrl = this._fb.control('');
         this.tagNumCtrl = this._fb.control('');
-        console.log(this._route)
+        // console.log(this._route)
     }
 
     ngOnInit(): void {
