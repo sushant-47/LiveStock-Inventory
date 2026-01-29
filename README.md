@@ -22,7 +22,8 @@ Install Project dependencies using:
 To start a local development server, run:
 
 ```bash
-ng serve --no-hmr
+nvm use # cd into project directory
+npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -35,6 +36,12 @@ Install `@nx/jest` plugin for testing:
 - npm x -- nx g @nx/jest:configuration --project=<project-name>
 
 Add `moduleNameMapper` for tsconfig paths in `jest.config.ts`.
+
+To run all tests in nx workspace, execute command:
+
+```bash
+npm test
+```
 
 
 ## Deploy to Github Pages
