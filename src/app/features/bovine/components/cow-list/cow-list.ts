@@ -2,6 +2,8 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { LowerCasePipe } from '@angular/common';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { CdkTableModule } from '@angular/cdk/table';
+import { ActivatedRoute } from '@angular/router';
+import { CgColumnDef, CgTableModule } from '@lib/table';
 import { merge, Subject, take, takeUntil } from 'rxjs';
 import { CowData } from '../../models/CowData';
 import { TableDataSource } from '../../models/TableDataSource';
@@ -22,22 +24,17 @@ import { IDialogData as IFormDialogData } from '../add-cow-dialog/IDialogData';
 import DetailsJson from '../../../../data/cows.json';
 import EventsJson from '../../../../data/recentEvents.json';
 import { IEventLog } from '../../models/IEventLog';
-import { ActivatedRoute } from '@angular/router';
-import { CgHeaderRow, CgHeaderRowDef, CgRow, CgRowDef } from '@lib/table';
 
 @Component({
     selector: 'cg-cow-list',
     imports: [
         LowerCasePipe,
         ReactiveFormsModule,
-        CdkTableModule,
+        // CdkTableModule,
         DialogModule,
         DateRenderer,
         StatusRenderer,
-        CgHeaderRowDef,
-        CgRowDef,
-        CgHeaderRow,
-        CgRow
+        CgTableModule,
     ],
     providers: [
         Dialog,

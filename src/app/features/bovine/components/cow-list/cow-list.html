@@ -69,45 +69,45 @@
                     <button class="primary" (click)="openAddCowDialog()"> Add Cow </button>
                 </div>
                 <div class="grid__wrapper">
-                    <cdk-table [dataSource]="dataSource">
-                        <ng-container [cdkColumnDef]="COLUMNS.TagNumber">
-                            <cdk-header-cell *cdkHeaderCellDef> Tag Number </cdk-header-cell>
-                            <cdk-cell class="c-primary-less-light" *cdkCellDef="let row">
+                    <cg-table [dataSource]="dataSource">
+                        <ng-container [cgColumnDef]="COLUMNS.TagNumber">
+                            <cg-header-cell *cgHeaderCellDef> Tag Number </cg-header-cell>
+                            <cg-cell class="c-primary-less-light" *cgCellDef="let row">
                                 <span (click)="showCowDetails(row)" (keydown.enter)="showCowDetails(row)"
                                     (keydown.space)="showCowDetails(row)" tabindex="0" class="cursor--pointer">
                                     {{row.tagNumber}}
                                 </span>
-                            </cdk-cell>
+                            </cg-cell>
                         </ng-container>
 
-                        <ng-container [cdkColumnDef]="COLUMNS.Gender">
-                            <cdk-header-cell *cdkHeaderCellDef> Sex </cdk-header-cell>
-                            <cdk-cell *cdkCellDef="let row"> {{GENDER[row.gender] | lowercase }} </cdk-cell>
+                        <ng-container [cgColumnDef]="COLUMNS.Gender">
+                            <cg-header-cell *cgHeaderCellDef> Sex </cg-header-cell>
+                            <cg-cell *cgCellDef="let row"> {{GENDER[row.gender] | lowercase }} </cg-cell>
                         </ng-container>
 
-                        <ng-container [cdkColumnDef]="COLUMNS.Pen">
-                            <cdk-header-cell *cdkHeaderCellDef> Pen </cdk-header-cell>
-                            <cdk-cell *cdkCellDef="let row"> {{row.pen}} </cdk-cell>
+                        <ng-container [cgColumnDef]="COLUMNS.Pen">
+                            <cg-header-cell *cgHeaderCellDef> Pen </cg-header-cell>
+                            <cg-cell *cgCellDef="let row"> {{row.pen}} </cg-cell>
                         </ng-container>
 
-                        <ng-container [cdkColumnDef]="COLUMNS.Status">
-                            <cdk-header-cell *cdkHeaderCellDef> Status </cdk-header-cell>
-                            <cdk-cell *cdkCellDef="let row">
+                        <ng-container [cgColumnDef]="COLUMNS.Status">
+                            <cg-header-cell *cgHeaderCellDef> Status </cg-header-cell>
+                            <cg-cell *cgCellDef="let row">
                                 <cg-status-renderer [status]="row.status"></cg-status-renderer>
-                            </cdk-cell>
+                            </cg-cell>
                         </ng-container>
 
-                        <ng-container [cdkColumnDef]="COLUMNS.RecordedDate">
-                            <cdk-header-cell *cdkHeaderCellDef> Recorded Date </cdk-header-cell>
-                            <cdk-cell *cdkCellDef="let row">
+                        <ng-container [cgColumnDef]="COLUMNS.RecordedDate">
+                            <cg-header-cell *cgHeaderCellDef> Recorded Date </cg-header-cell>
+                            <cg-cell *cgCellDef="let row">
                                 <cg-date-renderer [date]="row.recordedDate"></cg-date-renderer>
-                            </cdk-cell>
+                            </cg-cell>
                         </ng-container>
 
                         <!-- Header and Row Declarations -->
                         <cg-header-row *cgHeaderRowDef="let row; columns: COLUMNS_ARR"></cg-header-row>
                         <cg-row *cgRowDef="let row; columns: COLUMNS_ARR"></cg-row>
-                    </cdk-table>
+                    </cg-table>
                 </div>
             </div>
         </div>
