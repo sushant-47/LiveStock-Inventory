@@ -4,7 +4,6 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from "@angular/
 
 @Component({
     selector: 'cg-table',
-    exportAs: 'cdkTable',
     template: `
       <ng-container headerRowOutlet/>
       <ng-container rowOutlet/>
@@ -15,7 +14,11 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from "@angular/
         'class': 'cdk-table',
         'role': 'table',
     },
-    // encapsulation: ViewEncapsulation.None,
+    // empty styles does not allow emulated viewencapsulation to add attribute in dom
+    styles: `:host {}`,
+    encapsulation: ViewEncapsulation.Emulated,
+    // The view for `CgTable` consists entirely of templates declared in other views. As they are
+    // declared elsewhere, they are checked when their declaration points are checked.
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         { provide: CDK_TABLE, useExisting: CgTable },
