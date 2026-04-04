@@ -1,11 +1,11 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { LowerCasePipe } from '@angular/common';
-import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
-import { CdkTableModule } from '@angular/cdk/table';
-import { ActivatedRoute } from '@angular/router';
-import { CgColumnDef, CgTableModule } from '@lib/table';
-import { merge, Subject, take, takeUntil } from 'rxjs';
-import { CowData } from '../../models/CowData';
+import { AsyncPipe, LowerCasePipe } from '@angular/common';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Dialog } from '@angular/cdk/dialog';
+import { Overlay } from '@angular/cdk/overlay';
+import { CgTableModule } from '@lib/table';
+import { merge, Subject, take, takeUntil, timer } from 'rxjs';
+import { rCowData } from '../../models/rCowData';
 import { TableDataSource } from '../../models/TableDataSource';
 import { CowColumns } from '../../enums/CowColumns.enum';
 import { GENDER } from '../../enums/Gender.enum';
@@ -13,10 +13,8 @@ import { STATUS } from '../../enums/Status.enum';
 import { AddCowDialog } from '../add-cow-dialog/add-cow-dialog';
 import { CowFormBuilder } from '../../services/form.builder';
 import { CowDetailsDialog } from '../details-dialog/details-dialog';
-import { Overlay } from '@angular/cdk/overlay';
 import { ICowDetails } from '../../models/ICowDetails';
 import { BREED } from '../../enums/Breed.enum';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DateRenderer } from '../../renderers/date-renderer/date-renderer';
 import { StatusRenderer } from '../../renderers/status-renderer/status-renderer';
 import { IDialogData as IDetailsDialogData } from '../details-dialog/IDialogData';
@@ -25,16 +23,18 @@ import DetailsJson from '../../../../data/cows.json';
 import EventsJson from '../../../../data/recentEvents.json';
 import { IEventLog } from '../../models/IEventLog';
 
+let modifyCount: number = 0;
+
 @Component({
     selector: 'cg-cow-list',
     imports: [
-        LowerCasePipe,
         ReactiveFormsModule,
-        // CdkTableModule,
-        DialogModule,
+        CgTableModule,
+        // DialogModule,
+        AsyncPipe,
+        LowerCasePipe,
         DateRenderer,
         StatusRenderer,
-        CgTableModule,
     ],
     providers: [
         Dialog,
@@ -44,8 +44,8 @@ import { IEventLog } from '../../models/IEventLog';
     styleUrl: './cow-list.scss',
 })
 export class CowListComponent implements OnInit, OnDestroy {
-    cows: CowData[] = [];
-    dataSource: TableDataSource<CowData> = new TableDataSource([...this.cows]);
+    cows: rCowData[] = [];
+    dataSource: TableDataSource<rCowData> = new TableDataSource([...this.cows]);
     statusCtrl: FormControl<STATUS | -1>;
     penCtrl: FormControl<string>;
     tagNumCtrl: FormControl<string>;
@@ -74,25 +74,24 @@ export class CowListComponent implements OnInit, OnDestroy {
             });
 
     private _fb: FormBuilder = inject(FormBuilder);
-    private _route: ActivatedRoute = inject(ActivatedRoute);
+    private _formService: CowFormBuilder = inject(CowFormBuilder);
+    // root providers by default
     private _dialogService: Dialog = inject(Dialog);
     private _overlay: Overlay = inject(Overlay);
-    private _formService: CowFormBuilder = inject(CowFormBuilder);
     private _destroy$: Subject<void> = new Subject();
 
     constructor() {
         this.statusCtrl = this._fb.control(-1);
         this.penCtrl = this._fb.control('');
         this.tagNumCtrl = this._fb.control('');
-        // console.log(this._route)
     }
 
     ngOnInit(): void {
         // dummy data
-        const data = new CowData({
+        const data = new rCowData({
             tagNumber: 'C00008',
             gender: GENDER.MALE,
-            status: STATUS.ACTIVE,
+            status: STATUS.DRY_PERIOD,
             pen: 'Yard',
             recordedDate: new Date().toISOString(),
             weight: '300',
@@ -110,6 +109,13 @@ export class CowListComponent implements OnInit, OnDestroy {
                 this._applySearchAndFilters();
             }
         });
+
+        timer(15000).subscribe({
+            next: () => {
+                console.log('timer triggered');
+                this.modifyCow(0);
+            }
+        })
     }
 
     ngOnDestroy(): void {
@@ -117,7 +123,16 @@ export class CowListComponent implements OnInit, OnDestroy {
         this._destroy$.complete();
     }
 
-    showCowDetails(cow: CowData): void {
+    modifyCow(index: number, change: boolean = false): void {
+        const cow = this.cows[index];
+        cow.modifyCow({
+            status: change ? STATUS.DECEASED : STATUS.IN_TREATMENT,
+            pen: change ? 'Farm' : 'StockYard'
+        });
+        // cow.status = ;
+    }
+
+    showCowDetails(cow: rCowData): void {
         const cowDetails = this._getCowDetails(cow);
         const positionStrategy =
             this._overlay.position().global().right('0px');
@@ -182,7 +197,7 @@ export class CowListComponent implements OnInit, OnDestroy {
         const status: STATUS | -1 = this.statusCtrl.value;
         const pen: string = this.penCtrl.value;
         /** search data by Tag Number */
-        let currentData: CowData[] = [...this._getSearchResults(tagNumber, { tagNumber: true })];
+        let currentData: rCowData[] = [...this._getSearchResults(tagNumber, { tagNumber: true })];
         /** search data by Pen */
         currentData = [...this._getSearchResults(pen, { pen: true }, currentData)];
 
@@ -200,8 +215,8 @@ export class CowListComponent implements OnInit, OnDestroy {
             tagNumber?: boolean,
             pen?: boolean,
         },
-        dataToSearch: CowData[] = this.cows,
-    ): CowData[] {
+        dataToSearch: rCowData[] = this.cows,
+    ): rCowData[] {
         if (!searchStr) {
             return dataToSearch;
         }
@@ -221,14 +236,14 @@ export class CowListComponent implements OnInit, OnDestroy {
         });
     }
 
-    private _getCowDetails(cow: CowData): ICowDetails {
+    private _getCowDetails(cow: rCowData): ICowDetails {
         let cowDetails: ICowDetails;
         const cowJson =
             DetailsJson.find(
                 (details: Partial<ICowDetails>) => details.tagNumber.toLowerCase() === cow.tagNumber.toLowerCase()
             );
         if (!!cowJson) {
-            cowDetails = Object.assign({}, cowJson, JSON.parse(JSON.stringify(cow)));
+            cowDetails = Object.assign({}, cowJson, JSON.parse(JSON.stringify(cow.getData())));
             cowDetails.recentEvents = this._getCowEventDetails(cow.tagNumber);
         } else {
             const addedData: Partial<ICowDetails> = {
@@ -236,7 +251,7 @@ export class CowListComponent implements OnInit, OnDestroy {
                 "breed": BREED.BADRI,
                 "breedOrigin": ""
             };
-            cowDetails = Object.assign({}, addedData, JSON.parse(JSON.stringify(cow)));
+            cowDetails = Object.assign({}, addedData, JSON.parse(JSON.stringify(cow.getData())));
         }
         return cowDetails;
     }
@@ -245,7 +260,7 @@ export class CowListComponent implements OnInit, OnDestroy {
         return EventsJson.filter((eventLog) => eventLog.tagNumber.toLowerCase() === tagNumber.toLowerCase());
     }
 
-    private _addCowToDataSource(cow: CowData): void {
+    private _addCowToDataSource(cow: rCowData): void {
         this.cows.push(cow);
         this.dataSource.pushItems([cow]);
     }

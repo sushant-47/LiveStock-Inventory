@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { FormControlConstants } from "../constants/FormControlConstants";
 import { STATUS } from "../enums/Status.enum";
-import { CowData } from "../models/CowData";
+import { rCowData } from "../models/rCowData";
 
 @Injectable()
 export class CowFormBuilder {
@@ -37,8 +37,8 @@ export class CowFormBuilder {
         return true;
     }
 
-    convertFormDataToTableData(formData: any): CowData {
-        return new CowData({
+    convertFormDataToTableData(formData: any): rCowData {
+        return new rCowData({
             tagNumber: formData[FormControlConstants.TAG_NUMBER],
             gender: formData[FormControlConstants.GENDER],
             status: formData[FormControlConstants.STATUS],

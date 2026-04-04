@@ -1,3 +1,4 @@
+import { Observable, Subscriber } from "rxjs";
 import { GENDER } from "../enums/Gender.enum";
 import { STATUS } from "../enums/Status.enum";
 
@@ -17,5 +18,13 @@ export class CowData {
         this.pen = obj.pen;
         this.recordedDate = obj.recordedDate;
         this.weight = obj.weight;        
+    }
+
+    protected setStatus(status: STATUS): void {
+        this.status = status;
+    }
+
+    protected setPen(pen: string): void {
+        this.pen = pen;
     }
 }
