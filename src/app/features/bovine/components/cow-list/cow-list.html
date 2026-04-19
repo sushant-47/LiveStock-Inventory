@@ -88,16 +88,13 @@
 
                         <ng-container [cgColumnDef]="COLUMNS.Pen">
                             <cg-header-cell *cgHeaderCellDef> Pen </cg-header-cell>
-                            <!-- TODO: custom pipe that takes a property name of row data 
-                                and returns a mapped observable for async pipe
-                             -->
-                            <cg-cell *cgCellDef="let row"> {{ row.pen$ | async }} </cg-cell>
+                            <cg-cell *cgCellDef="let row"> {{ row | asyncProp: 'pen' | async }} </cg-cell>
                         </ng-container>
 
                         <ng-container [cgColumnDef]="COLUMNS.Status">
                             <cg-header-cell *cgHeaderCellDef> Status </cg-header-cell>
                             <cg-cell *cgCellDef="let row">
-                                <cg-status-renderer [status]="row.status$ | async"></cg-status-renderer>
+                                <cg-status-renderer [status]="row | asyncProp: 'status' | async"></cg-status-renderer>
                             </cg-cell>
                         </ng-container>
 

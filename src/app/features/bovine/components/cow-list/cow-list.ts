@@ -22,6 +22,7 @@ import { IDialogData as IFormDialogData } from '../add-cow-dialog/IDialogData';
 import DetailsJson from '../../../../data/cows.json';
 import EventsJson from '../../../../data/recentEvents.json';
 import { IEventLog } from '../../models/IEventLog';
+import { AsyncPropPipe } from '../../pipes/asyncprop.pipe';
 
 let modifyCount: number = 0;
 
@@ -31,6 +32,7 @@ let modifyCount: number = 0;
         ReactiveFormsModule,
         CgTableModule,
         // DialogModule,
+        AsyncPropPipe,
         AsyncPipe,
         LowerCasePipe,
         DateRenderer,

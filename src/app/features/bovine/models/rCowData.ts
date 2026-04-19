@@ -15,6 +15,7 @@ export class rCowData extends CowData {
         };
     }).pipe(startWith(this));
 
+    obs$ = this._obs$;
     status$: Observable<STATUS> = this._obs$.pipe(map((cow) => cow.status));
     pen$: Observable<string> = this._obs$.pipe(map((cow) => cow.pen));
 
